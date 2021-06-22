@@ -1,0 +1,33 @@
+/**
+ * ----------------------------------------------------------------------------
+ *  BASE
+ * ----------------------------------------------------------------------------
+ */
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.main {
+  flex: 1;
+}
