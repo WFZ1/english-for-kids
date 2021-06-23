@@ -1,5 +1,6 @@
 import router from './components/base/router';
 import header from './components/header/header';
+import navDrawer from './components/nav-drawer/nav-drawer';
 import createElement from './shared/create-element';
 
 export default class App {
@@ -12,7 +13,7 @@ export default class App {
   }
 
   private render(): void {
-    this.rootEl.append(header.el, this.mainEl);
+    this.rootEl.append(header.el, this.mainEl, navDrawer.el);
   }
 
   private clearMainEl(): void {
