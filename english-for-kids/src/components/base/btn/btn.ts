@@ -1,8 +1,9 @@
 import './btn.scss';
 import BaseComponent from '../base-component';
+import IBtn from '../../../types/btn.type';
 
 export default class Btn extends BaseComponent {
-  constructor(classes: string[], text: string, type = 'button') {
+  constructor({ classes, text, type }: IBtn) {
     super('button', ['btn', ...classes]);
 
     this.render(text, type);
@@ -13,7 +14,7 @@ export default class Btn extends BaseComponent {
     this.el.setAttribute('type', type);
   }
 
-  attachHandler(func: (e: Event) => void): void {
+  attachHandler(func: (e?: Event) => void): void {
     this.el.addEventListener('click', func);
   }
 }

@@ -1,0 +1,96 @@
+.state-switcher {
+  position: relative;
+  display: block;
+  width: 126px;
+  height: 46px;
+  padding: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fff;
+  background-image: linear-gradient(180deg, #eee, #fff 25px);
+  box-shadow: inset 0 -1px #fff, inset 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.state-switcher__checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.switcher__panel {
+  position: relative;
+  display: block;
+  height: 100%;
+  font-size: 18px;
+  line-height: 40px;
+  text-transform: uppercase;
+  border-radius: inherit;
+  background-image: linear-gradient(40deg, #ffd86f, #fc6262);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 12%), inset 0 0 2px rgb(0 0 0 / 15%);
+  transition-property: background-image, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+
+  .state-switcher__checkbox:checked + & {
+    background-image: linear-gradient(40deg, #00bf82, #0099ae);
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 15%), inset 0 0 3px rgb(0 0 0 / 20%);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    color: #fff;
+    transition: opacity 0.15s;
+  }
+
+  &::before {
+    content: attr(data-off);
+    right: 15px;
+    text-shadow: 0 1px hsl(0deg 0% 100% / 50%);
+  }
+
+  &::after {
+    content: attr(data-on);
+    left: 15px;
+    text-shadow: 0 1px rgb(0 0 0 / 20%);
+    opacity: 0;
+  }
+
+  .state-switcher__checkbox:checked + &:before {
+    opacity: 0;
+  }
+  .state-switcher__checkbox:checked + &:after {
+    opacity: 1;
+  }
+}
+
+.switcher__handle {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 33px;
+  height: 33px;
+  border-radius: 5px;
+  background-color: #fff;
+  background-image: linear-gradient(180deg, #fff 40%, #f0f0f0);
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
+  transition: left 0.15s ease-out;
+
+  .state-switcher__checkbox:checked ~ & {
+    left: 85px;
+    box-shadow: -1px 1px 5px rgb(0 0 0 / 20%);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    background-image: linear-gradient(180deg, #eee, #fff);
+    box-shadow: inset 0 1px rgb(0 0 0 / 2%);
+  }
+}

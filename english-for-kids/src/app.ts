@@ -1,12 +1,22 @@
 import router from './components/base/router';
+import header from './components/header/header';
+import createElement from './shared/create-element';
 
 export default class App {
-  constructor(private readonly rootEl: HTMLElement) {}
+  private readonly mainEl: HTMLElement;
 
-  // private render(): void {}
+  constructor(private readonly rootEl: HTMLElement) {
+    this.mainEl = createElement('main', ['main']);
+
+    this.render();
+  }
+
+  private render(): void {
+    this.rootEl.append(header.el, this.mainEl);
+  }
 
   private clearMainEl(): void {
-    this.rootEl.innerHTML = '';
+    this.mainEl.innerHTML = '';
   }
 
   addRoutes(): void {
