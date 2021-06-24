@@ -1,6 +1,7 @@
 import router from './components/base/router';
 import header from './components/header/header';
 import navDrawer from './components/nav-drawer/nav-drawer';
+import categoriesField from './components/categories-field/categories-field';
 import createElement from './shared/create-element';
 
 export default class App {
@@ -23,6 +24,7 @@ export default class App {
   addRoutes(): void {
     router.add('', () => {
       this.clearMainEl();
+      this.mainEl.append(categoriesField.el);
     });
   }
 }

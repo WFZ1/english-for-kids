@@ -1,7 +1,7 @@
 import './nav-drawer.scss';
 import BaseComponent from '../base/base-component';
 import createElement from '../../shared/create-element';
-import { hambMenuOpenClass, NAV_ITEMS } from '../../constants';
+import { HAMB_MENU_OPEN_CLASS, NAV_ITEMS } from '../../constants';
 import Link from '../base/link/link';
 import INavItem from '../../types/nav-item.type';
 
@@ -50,7 +50,7 @@ class NavDrawer extends BaseComponent {
 
   private checkClickIsOutside(e: Event): void {
     if (e.target === this.wrapperEl) {
-      document.body.classList.remove(hambMenuOpenClass);
+      document.body.classList.remove(HAMB_MENU_OPEN_CLASS);
     }
   }
 }

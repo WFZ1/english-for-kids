@@ -1,0 +1,9 @@
+.categories-field {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
+  gap: 40px 50px;
+  max-width: 1440px;
+  padding: 40px;
+  margin: 0 auto;
+  justify-content: center;
+}

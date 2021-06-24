@@ -14,7 +14,7 @@ export default class Link extends BaseComponent {
     this.el.textContent = text;
   }
 
-  attachHandler(func: (e: Event) => void): void {
+  attachHandler(func: (e?: Event) => void): void {
     this.el.addEventListener('click', func);
   }
 }

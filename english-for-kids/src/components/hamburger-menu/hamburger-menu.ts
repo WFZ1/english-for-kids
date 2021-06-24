@@ -1,7 +1,7 @@
 import './hamburger-menu.scss';
 import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
-import { hambMenuOpenClass } from '../../constants';
+import { HAMB_MENU_OPEN_CLASS } from '../../constants';
 
 export default class HamburgerMenu extends Btn {
   private readonly itemTopEl: HTMLElement;
@@ -31,6 +31,6 @@ export default class HamburgerMenu extends Btn {
 
   private build(): void {
     this.el.append(this.itemTopEl, this.itemMidEl, this.itemBotEl);
-    this.attachHandler(() => document.body.classList.toggle(hambMenuOpenClass));
+    this.attachHandler(() => document.body.classList.toggle(HAMB_MENU_OPEN_CLASS));
   }
 }
