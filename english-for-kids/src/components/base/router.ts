@@ -17,7 +17,7 @@ class Router {
     this.listen();
   }
 
-  add(path: string, callback: () => void): Router {
+  add(path: string | RegExp, callback: (props: RegExpMatchArray) => void): Router {
     this.routes.push({ path, callback });
     return this;
   }
@@ -78,8 +78,10 @@ class Router {
     that.curPage = pageName;
 
     that.routes.some((route) => {
-      if (that.curPage === route.path) {
-        route.callback();
+      const match = that.curPage?.match(route.path);
+
+      if (match) {
+        route.callback(match);
         return true;
       }
 

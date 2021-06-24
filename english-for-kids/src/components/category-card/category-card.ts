@@ -26,6 +26,9 @@ export default class CategoryCard extends Link {
 
     this.el.append(this.imageEl, this.titleEl);
 
-    this.attachHandler(() => router.navigate(`category/${ handle }`));
+    this.attachHandler((e) => {
+      e?.preventDefault();
+      router.navigate(`category/${ handle }`)
+    });
   }
 }

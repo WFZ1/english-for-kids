@@ -9,6 +9,8 @@ export const YEAR_CREATE_APP = '\'21';
 
 export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 
+export const NAV_ITEM_ACTIVE_CLASS = 'nav-drawer__link_active'
+
 export const CATEGORY_CARDS = [
   {
     handle: 'action-set-a',

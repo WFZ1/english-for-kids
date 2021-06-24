@@ -4,6 +4,7 @@ import createElement from '../../shared/create-element';
 import { HAMB_MENU_OPEN_CLASS, NAV_ITEMS } from '../../constants';
 import Link from '../base/link/link';
 import INavItem from '../../types/nav-item.type';
+import router from '../base/router';
 
 class NavDrawer extends BaseComponent {
   private readonly navEl: HTMLElement;
@@ -12,7 +13,7 @@ class NavDrawer extends BaseComponent {
 
   private readonly containerEl: HTMLElement;
 
-  private readonly navItems: HTMLElement[] = [];
+  readonly navItems: HTMLElement[] = [];
 
   constructor() {
     super('div', ['nav-drawer']);
@@ -36,10 +37,20 @@ class NavDrawer extends BaseComponent {
     const itemEl = createElement('li', ['nav-drawer__item']);
     const link = new Link({ classes: ['nav-drawer__link'], url, text });
 
+    link.attachHandler((e) => {
+      e?.preventDefault();
+      NavDrawer.handleNavItem(url);
+    });
+
     this.containerEl.append(itemEl);
     itemEl.append(link.el);
 
     this.navItems.push(itemEl);
+  }
+
+  private static handleNavItem(url: string): void {
+    document.body.classList.remove(HAMB_MENU_OPEN_CLASS);
+    router.navigate(url);
   }
 
   private attachListeners(): void {

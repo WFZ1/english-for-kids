@@ -51,16 +51,17 @@
 }
 
 .nav-drawer__item {
-  padding: 10px 0;
-  cursor: pointer;
   font-size: 22px;
 }
 
 .nav-drawer__link {
+  display: block;
+  padding: 10px 0;
   text-decoration: none;
   color: #fff;
 }
 
 .nav-drawer__link_active {
+  pointer-events: none;
   text-decoration: underline;
 }
