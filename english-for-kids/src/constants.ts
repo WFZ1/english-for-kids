@@ -1,41 +1,11 @@
-export const NAV_ITEMS = [
-  {
-    text: 'Main Page',
-    url: '',
-  },
-  {
-    text: 'Action (set A)',
-    url: 'category/action-set-a',
-  },
-  {
-    text: 'Action (set B)',
-    url: 'category/action-set-b',
-  },
-  {
-    text: 'Animal (set A)',
-    url: 'category/animal-set-a',
-  },
-  {
-    text: 'Animal (set B)',
-    url: 'category/animal-set-b',
-  },
-  {
-    text: 'Clothes',
-    url: 'category/clothes',
-  },
-  {
-    text: 'Emotions',
-    url: 'category/emotions',
-  },
-  {
-    text: 'Work',
-    url: 'category/work',
-  },
-  {
-    text: 'Professions',
-    url: 'category/professions',
-  },
-];
+export const MY_GITHUB = {
+  url: 'https://github.com/WFZ1',
+  name: 'WFZ1'
+}
+
+export const RSSCHOOL_JS_LINK = 'https://rs.school/js/';
+
+export const YEAR_CREATE_APP = '\'21';
 
 export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 
@@ -493,9 +463,16 @@ export const WORD_CARDS = [
   ]
 ];
 
-export const MY_GITHUB = {
-  url: 'https://github.com/WFZ1',
-  name: 'WFZ1'
-}
-export const RSSCHOOL_JS_LINK = 'https://rs.school/js/';
-export const YEAR_CREATE_APP = '\'21';
+export const NAV_ITEMS = [
+  {
+    text: 'Main Page',
+    url: '',
+  }
+];
+
+CATEGORY_CARDS.forEach((category) => {
+  NAV_ITEMS.push({
+    text: category.title,
+    url: `category/${ category.handle }`
+  });
+});
