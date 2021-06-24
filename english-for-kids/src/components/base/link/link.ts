@@ -3,15 +3,17 @@ import BaseComponent from '../base-component';
 import ILink from '../../../types/link.type';
 
 export default class Link extends BaseComponent {
-  constructor({ classes, url, text }: ILink) {
-    super('a', ['link', ...classes]);
+  constructor(props: ILink) {
+    super('a', props.classes.concat(['link']));
 
-    this.render(url, text);
+    this.render(props);
   }
 
-  private render(url: string, text: string): void {
+  private render({ url, text, target }: ILink): void {
     this.el.setAttribute('href', url);
-    this.el.textContent = text;
+
+    if (text) this.el.textContent = text;
+    if (target) this.el.setAttribute('target', target);
   }
 
   attachHandler(func: (e?: Event) => void): void {

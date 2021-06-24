@@ -1,5 +1,6 @@
 import router from './components/base/router';
 import header from './components/header/header';
+import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
 import createElement from './shared/create-element';
@@ -8,13 +9,13 @@ export default class App {
   private readonly mainEl: HTMLElement;
 
   constructor(private readonly rootEl: HTMLElement) {
-    this.mainEl = createElement('main', ['main']);
+    this.mainEl = createElement('main', ['main', 'page__main']);
 
     this.render();
   }
 
   private render(): void {
-    this.rootEl.append(header.el, this.mainEl, navDrawer.el);
+    this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el);
   }
 
   private clearMainEl(): void {

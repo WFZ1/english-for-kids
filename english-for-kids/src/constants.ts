@@ -492,3 +492,10 @@ export const WORD_CARDS = [
     },
   ]
 ];
+
+export const MY_GITHUB = {
+  url: 'https://github.com/WFZ1',
+  name: 'WFZ1'
+}
+export const RSSCHOOL_JS_LINK = 'https://rs.school/js/';
+export const YEAR_CREATE_APP = '\'21';
