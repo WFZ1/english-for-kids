@@ -6,13 +6,15 @@ import createElement from '../../shared/create-element';
 import { FLIP_CLASS } from '../../constants';
 
 export default class WordCard extends BaseComponent {
+  isFlipped = false;
+
   isDisabled = false;
 
   readonly flipDuration = 250;
 
   private readonly containerEl: HTMLElement;
 
-  private readonly frontEl: HTMLElement;
+  readonly frontEl: HTMLElement;
 
   private readonly backEl: HTMLElement;
 
@@ -22,7 +24,7 @@ export default class WordCard extends BaseComponent {
 
   readonly rotateEl: HTMLElement;
 
-  constructor(cardProps: IWordCard) {
+  constructor(cardProps: IWordCard, categoryName: string) {
     super('div', ['word-card']);
 
     this.containerEl = createElement('div', ['word-card__container']);
@@ -34,14 +36,17 @@ export default class WordCard extends BaseComponent {
 
     this.rotateEl = createElement('span', ['word-card__rotate',]);
 
-    this.render(cardProps);
+    this.render(cardProps, categoryName);
   }
 
-  private render(cardProps: IWordCard): void {
+  private render(cardProps: IWordCard, categoryName: string): void {
     const bgImg = `background-image: url("${ cardProps.image }")`;
 
     this.frontEl.setAttribute('style', bgImg);
     this.backEl.setAttribute('style', bgImg);
+
+    this.frontEl.dataset.category = categoryName;
+    this.frontEl.dataset.audio = cardProps.audio;
 
     this.wordEnEl.textContent = cardProps.word;
     this.wordRuEl.textContent = cardProps.translation;
@@ -65,10 +70,12 @@ export default class WordCard extends BaseComponent {
   }
 
   flipToBack(): Promise<void> {
+    this.isFlipped = true;
     return this.flip(true);
   }
 
   flipToFront(): Promise<void> {
+    this.isFlipped = false;
     return this.flip();
   }
 
@@ -78,5 +85,10 @@ export default class WordCard extends BaseComponent {
 
       delay(this.flipDuration).then(resolve);
     });
+  }
+
+  static playAudio(src: string): void {
+    const audio = new Audio(src);
+    audio.play();
   }
 }
