@@ -11,6 +11,8 @@ export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 
 export const NAV_ITEM_ACTIVE_CLASS = 'nav-drawer__link_active'
 
+export const FLIP_CLASS = 'word-card_flipped';
+
 export const CATEGORY_CARDS = [
   {
     handle: 'action-set-a',
@@ -366,7 +368,7 @@ export const WORD_CARDS = [
   [
     {
       word: 'home office',
-      translation: 'домашний офис, офис для работы дома',
+      translation: 'домашний офис',
       image: 'home-office.png',
       audio: 'home-office.mp3',
     },

@@ -1,0 +1,15 @@
+@import "../../breakpoints.scss";
+
+.category-page__title {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 26px;
+  color: #212529;
+
+  @include at($min, $tablet) {
+    margin-bottom: 20px;
+  }
+}

@@ -5,12 +5,21 @@ import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
 import createElement from './shared/create-element';
 import { NAV_ITEM_ACTIVE_CLASS } from './constants';
+import CategoryPage from './components/category-page/category-page';
 
 export default class App {
+  readonly state: { currentPage: string } = {
+    currentPage: ''
+  };
+
   private readonly mainEl: HTMLElement;
+
+  private readonly categoryPage: CategoryPage;
 
   constructor(private readonly rootEl: HTMLElement) {
     this.mainEl = createElement('main', ['main', 'page__main']);
+
+    this.categoryPage = new CategoryPage(this.mainEl);
 
     this.render();
   }
@@ -29,34 +38,40 @@ export default class App {
     );
   }
 
-  private static findHighlightNavItem(url: string): void {
+  private findHighlightNavItem(url: string): void {
     const navItemIndex = navDrawer.navItems.findIndex((item) => {
       const link = item.children[0] as HTMLAnchorElement;
       return link.pathname === `/${ url }`;
     });
 
-    App.highlightNavItem(navItemIndex);
+    this.highlightNavItem(navItemIndex);
   }
 
-  private static highlightNavItem(index: number): void {
-    navDrawer.navItems[index].classList.add(NAV_ITEM_ACTIVE_CLASS);
+  private highlightNavItem(index: number): void {
+    const navItem = navDrawer.navItems[index];
+    navItem.classList.add(NAV_ITEM_ACTIVE_CLASS);
+
+    this.state.currentPage = navItem.children[0].textContent || '';
   }
 
   addRoutes(): void {
     router
       .add(/category\/(.*)/, (props: RegExpMatchArray) => {
         this.clearMainEl();
-        this.mainEl.append(props[1]);
+        document.body.className = 'category-page';
 
         App.resetStateNavItems();
-        App.findHighlightNavItem(props[0]);
+        this.findHighlightNavItem(props[0]);
+
+        this.categoryPage.render(props[1], this.state.currentPage);
       })
       .add('', () => {
         this.clearMainEl();
-        this.mainEl.append(categoriesField.el);
 
         App.resetStateNavItems();
-        App.highlightNavItem(0);
+        this.highlightNavItem(0);
+
+        this.mainEl.append(categoriesField.el);
       });
   }
 }
