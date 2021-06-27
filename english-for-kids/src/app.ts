@@ -9,9 +9,7 @@ import CategoryPage from './components/category-page/category-page';
 import store from './components/base/store';
 
 export default class App {
-  readonly state: { currentPage: string } = {
-    currentPage: ''
-  };
+  private currentPage = '';
 
   private readonly mainEl: HTMLElement;
 
@@ -53,7 +51,7 @@ export default class App {
     const navItem = navDrawer.navItems[index];
     navItem.classList.add(NAV_ITEM_ACTIVE_CLASS);
 
-    this.state.currentPage = navItem.children[0].textContent || '';
+    this.currentPage = navItem.children[0].textContent || '';
   }
 
   addRoutes(): void {
@@ -65,7 +63,7 @@ export default class App {
         App.resetStateNavItems();
         this.findHighlightNavItem(props[0]);
 
-        this.categoryPage.render(props[1], this.state.currentPage);
+        this.categoryPage.render(props[1], this.currentPage);
       })
       .add('', () => {
         this.clearMainEl();
