@@ -1,3 +1,15 @@
+export const GAME_TRAIN = 'game/train';
+
+export const TRAIN = 'train';
+
+export const GAME_PLAY = 'game/play';
+
+export const PLAY = 'play';
+
+export const INITIAL_STATE = {
+  gameState: 'train'
+};
+
 export const MY_GITHUB = {
   url: 'https://github.com/WFZ1',
   name: 'WFZ1'

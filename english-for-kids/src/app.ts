@@ -4,8 +4,9 @@ import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
 import createElement from './shared/create-element';
-import { NAV_ITEM_ACTIVE_CLASS } from './constants';
+import { NAV_ITEM_ACTIVE_CLASS, TRAIN } from './constants';
 import CategoryPage from './components/category-page/category-page';
+import store from './components/base/store';
 
 export default class App {
   readonly state: { currentPage: string } = {
@@ -26,6 +27,7 @@ export default class App {
 
   private render(): void {
     this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el);
+    App.initStateApp();
   }
 
   private clearMainEl(): void {
@@ -58,7 +60,7 @@ export default class App {
     router
       .add(/category\/(.*)/, (props: RegExpMatchArray) => {
         this.clearMainEl();
-        document.body.className = 'category-page';
+        document.body.classList.add('category-page');
 
         App.resetStateNavItems();
         this.findHighlightNavItem(props[0]);
@@ -73,5 +75,20 @@ export default class App {
 
         this.mainEl.append(categoriesField.el);
       });
+  }
+
+  private static initStateApp(): void {
+    App.changeStateApp();
+    store.subscribe(App.changeStateApp);
+  }
+
+  private static changeStateApp(): void {
+    if (store.getState().gameState === TRAIN) {
+      document.body.classList.remove('game-mode-play');
+      document.body.classList.add('game-mode-train');
+    } else {
+      document.body.classList.remove('game-mode-train');
+      document.body.classList.add('game-mode-play');
+    }
   }
 }

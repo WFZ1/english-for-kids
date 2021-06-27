@@ -1,6 +1,8 @@
 import './state-switcher.scss';
 import BaseComponent from '../base/base-component';
 import createElement from '../../shared/create-element';
+import store from '../base/store';
+import { GAME_PLAY, GAME_TRAIN, PLAY, TRAIN } from '../../constants';
 
 class StateSwitcher extends BaseComponent {
   private readonly checkboxEl: HTMLElement;
@@ -16,6 +18,7 @@ class StateSwitcher extends BaseComponent {
     this.panelEl = createElement('span', ['switcher__panel']);
     this.handleEl = createElement('span', ['switcher__handle']);
 
+    this.attachListener();
     this.render();
   }
 
@@ -27,6 +30,18 @@ class StateSwitcher extends BaseComponent {
     this.panelEl.dataset.off = 'Play';
 
     this.el.append(this.checkboxEl, this.panelEl, this.handleEl);
+  }
+
+  private attachListener(): void {
+    this.checkboxEl.addEventListener('change', () => this.changeState());
+  }
+
+  private changeState(): void {
+    if ((this.checkboxEl as HTMLInputElement).checked) {
+      store.dispatch({ type: GAME_TRAIN, gameState: TRAIN });
+    } else {
+      store.dispatch({ type: GAME_PLAY, gameState: PLAY });
+    }
   }
 }
 
