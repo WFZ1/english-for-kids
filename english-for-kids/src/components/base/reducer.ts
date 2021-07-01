@@ -10,7 +10,9 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         currentPage: action.currentPage || '',
         category: action.category || '',
         isPageChange: true,
-        isGameStart: false
+        isGameStart: false,
+        isCardCorrect: false,
+        isCardError: false
       };
     }
     case GAME_MODE_CHANGE:
