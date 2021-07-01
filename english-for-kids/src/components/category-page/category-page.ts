@@ -49,7 +49,7 @@ export default class CategoryPage {
   private async changeState(): Promise<void> {
     const state = store.getState();
 
-    if (state.isCardCorrect) {
+    if (state.isCardCorrect && !state.isEndGame) {
       this.gameScore.success();
       await delay(500);
       this.playAudioCurrentCard();
