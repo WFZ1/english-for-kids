@@ -1,18 +1,16 @@
 import router from './components/base/router';
+import store from './components/base/store';
 import header from './components/header/header';
 import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
-import createElement from './shared/create-element';
-import { APP_PAGE_CHANGE, APP_PAGES, NAV_ITEM_ACTIVE_CLASS, TRAIN, GAME_END_SPLASH_SCREEN, GAME_END } from './constants';
 import CategoryPage from './components/category-page/category-page';
-import store from './components/base/store';
 import GameEndSplashScreen from './components/game-end-splash-screen/game-end-splash-screen';
+import createElement from './shared/create-element';
 import delay from './shared/delay';
+import { APP_PAGE_CHANGE, APP_PAGES, NAV_ITEM_ACTIVE_CLASS, TRAIN, GAME_END_SPLASH_SCREEN, GAME_END } from './constants';
 
 export default class App {
-  private currentPage = '';
-
   private readonly mainEl: HTMLElement;
 
   private readonly categoryPage: CategoryPage;
@@ -37,6 +35,34 @@ export default class App {
     this.initStateApp();
   }
 
+  addRoutes(): void {
+    router
+      .add(/category\/(.*)/, (props: RegExpMatchArray) => {
+        this.clearMainEl();
+
+        document.body.classList.remove('home-page');
+        document.body.classList.add('category-page');
+
+        App.resetStateNavItems();
+        App.findHighlightNavItem(props[0]);
+
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.category, category: props[1] });
+        this.categoryPage.render(props[1]);
+      })
+      .add('', () => {
+        this.clearMainEl();
+
+        document.body.classList.remove('category-page');
+        document.body.classList.add('home-page');
+
+        App.resetStateNavItems();
+        App.highlightNavItem(0);
+
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
+        this.mainEl.append(categoriesField.el);
+      });
+  }
+
   private clearMainEl(): void {
     this.mainEl.innerHTML = '';
   }
@@ -47,43 +73,19 @@ export default class App {
     );
   }
 
-  private findHighlightNavItem(url: string): void {
+  private static findHighlightNavItem(url: string): void {
     const navItemIndex = navDrawer.navItems.findIndex((item) => {
       const link = item.children[0] as HTMLAnchorElement;
+
       return link.pathname === `/${ url }`;
     });
 
-    this.highlightNavItem(navItemIndex);
+    App.highlightNavItem(navItemIndex);
   }
 
-  private highlightNavItem(index: number): void {
+  private static highlightNavItem(index: number): void {
     const navItem = navDrawer.navItems[index];
     navItem.classList.add(NAV_ITEM_ACTIVE_CLASS);
-
-    this.currentPage = navItem.children[0].textContent || '';
-  }
-
-  addRoutes(): void {
-    router
-      .add(/category\/(.*)/, (props: RegExpMatchArray) => {
-        this.clearMainEl();
-        document.body.classList.add('category-page');
-
-        App.resetStateNavItems();
-        this.findHighlightNavItem(props[0]);
-
-        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.category, category: props[1] });
-        this.categoryPage.render(props[1], this.currentPage);
-      })
-      .add('', () => {
-        this.clearMainEl();
-
-        App.resetStateNavItems();
-        this.highlightNavItem(0);
-
-        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
-        this.mainEl.append(categoriesField.el);
-      });
   }
 
   private initStateApp(): void {
@@ -102,12 +104,8 @@ export default class App {
       document.body.classList.add('game-mode-play');
 
       if (state.isEndGame) {
-        if (state.countErrors) {
-          this.showMistakesGameEnd();
-        }
-        else {
-          this.showCongratulationsGameEnd();
-        }
+        if (state.countErrors) this.showMistakesGameEnd();
+        else this.showCongratulationsGameEnd();
       }
     }
   }

@@ -1,12 +1,12 @@
 import './category-page.scss';
-import CardsField from '../cards-field/cards-field';
-import createElement from '../../shared/create-element';
-import { CATEGORY_CARDS, GAME_START, WORD_CARDS } from '../../constants';
-import IWordCard from '../../types/word-card.type';
-import BtnStartGame from '../btn-start-game/btn-start-game';
-import store from '../base/store';
 import GameScore from '../game-score/game-score';
+import CardsField from '../cards-field/cards-field';
+import BtnStartGame from '../btn-start-game/btn-start-game';
+import createElement from '../../shared/create-element';
+import store from '../base/store';
 import delay from '../../shared/delay';
+import IWordCardProps from '../../types/word-card-props.type';
+import { CATEGORY_CARDS, GAME_START, WORD_CARDS } from '../../constants';
 
 export default class CategoryPage {
   private readonly cardsField: CardsField;
@@ -23,30 +23,32 @@ export default class CategoryPage {
     this.cardsField = new CardsField();
     this.btnStartGame = new BtnStartGame(['category-page__btn-start']);
 
-    this.subscribeToChangeState();
+    this.subscribeToChangeAppState();
     this.addHandlerStartGame();
   }
 
-  render(categoryName: string, title: string): void {
+  render(title: string): void {
     this.titleEl.textContent = title;
 
-    const data = CategoryPage.getCategoryCardsData(categoryName);
-    this.cardsField.addCards(data, categoryName);
+    const categoryName = store.getState().category;
+
+    const cardsData = CategoryPage.getCategoryCardsData(categoryName);
+    this.cardsField.addCards(cardsData, categoryName);
 
     this.rootEl.append(this.titleEl, this.gameScore.el, this.cardsField.el, this.btnStartGame.el);
   }
 
-  private static getCategoryCardsData(categoryName: string): IWordCard[] {
+  private static getCategoryCardsData(categoryName: string): IWordCardProps[] {
     const categoryIndex = CATEGORY_CARDS.findIndex((card) => card.handle === categoryName);
     const data = WORD_CARDS[categoryIndex];
     return data;
   }
 
-  private subscribeToChangeState(): void {
-    store.subscribe(this.changeState.bind(this));
+  private subscribeToChangeAppState(): void {
+    store.subscribe(this.changeStateApp.bind(this));
   }
 
-  private async changeState(): Promise<void> {
+  private async changeStateApp(): Promise<void> {
     const state = store.getState();
 
     if (state.isCardCorrect && !state.isEndGame) {
@@ -62,6 +64,11 @@ export default class CategoryPage {
     }
   }
 
+  private playAudioCurrentCard(): void {
+    const { currentCardIndex } = store.getState();
+    this.cardsField.cards[currentCardIndex].playAudio();
+  }
+
   private addHandlerStartGame(): void {
     this.btnStartGame.attachHandlerStartGame(() => {
       this.startGame();
@@ -71,18 +78,14 @@ export default class CategoryPage {
 
   private startGame(): void {
     if (!store.getState().isGameStart) {
-      const randomArr = this.createRandomArray();
+      const randomArr = this.createCardsRandomArray();
+      this.btnStartGame.changeView();
 
       store.dispatch({ type: GAME_START, randomCards: randomArr, currentCardIndex: randomArr[randomArr.length - 1] });
     }
   }
 
-  private playAudioCurrentCard(): void {
-    const { currentCardIndex } = store.getState();
-    this.cardsField.cards[currentCardIndex].playAudio();
-  }
-
-  private createRandomArray(): number[] {
+  private createCardsRandomArray(): number[] {
     const countCards = this.cardsField.cards.length;
     const arr = [...Array(countCards).keys()];
 

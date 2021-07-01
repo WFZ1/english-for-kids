@@ -18,30 +18,30 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
     case GAME_MODE_CHANGE:
       return {
         ...state,
-        gameMode: action.gameMode || '',
         isPageChange: false,
+        gameMode: action.gameMode || '',
         isGameStart: false
       };
     case GAME_START:
       return {
         ...state,
-        currentCardIndex: action.currentCardIndex || 0,
         isPageChange: false,
         isGameStart: true,
+        isEndGame: false,
         randomCards: action.randomCards || [],
+        currentCardIndex: action.currentCardIndex || 0,
         isCardCorrect: false,
         isCardError: false,
-        isEndGame: false,
         countErrors: 0
       };
     case GAME_END:
       return {
         ...state,
+        isPageChange: true,
         isGameStart: false,
         isEndGame: false,
         isCardCorrect: false,
         isCardError: false,
-        isPageChange: true
       };
     case GAME_CARD_CORRECT: {
       const randomCards = state.randomCards.slice();
@@ -52,11 +52,11 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
 
       return {
         ...state,
-        currentCardIndex: randomCards[randomCards.length - 1],
+        isEndGame,
         randomCards,
+        currentCardIndex: randomCards[randomCards.length - 1],
         isCardCorrect: true,
-        isCardError: false,
-        isEndGame
+        isCardError: false
       };
     }
     case GAME_CARD_ERROR:

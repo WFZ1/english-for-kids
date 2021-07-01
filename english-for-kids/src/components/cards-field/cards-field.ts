@@ -1,11 +1,11 @@
 import './cards-field.scss';
 import BaseComponent from '../base/base-component';
 import WordCard from '../word-card/word-card';
-import IWordCard from '../../types/word-card.type';
-import getContainEl from '../../shared/get-contain-el';
 import store from '../base/store';
-import { GAME_CARD_CORRECT, GAME_CARD_ERROR, TRAIN } from '../../constants';
 import getAudio from '../../shared/get-audio';
+import getContainEl from '../../shared/get-contain-el';
+import IWordCardProps from '../../types/word-card-props.type';
+import { GAME_CARDS_SOUND_NOTICES, GAME_CARD_CORRECT, GAME_CARD_ERROR, TRAIN } from '../../constants';
 
 export default class CardsField extends BaseComponent {
   cards: WordCard[] = [];
@@ -17,8 +17,8 @@ export default class CardsField extends BaseComponent {
   constructor() {
     super('div', ['cards-field']);
 
-    this.audioCorrect = getAudio('notices', 'correct.mp3');
-    this.audioError = getAudio('notices', 'error.mp3');
+    this.audioCorrect = getAudio(GAME_CARDS_SOUND_NOTICES.correct.folder, GAME_CARDS_SOUND_NOTICES.correct.audio);
+    this.audioError = getAudio(GAME_CARDS_SOUND_NOTICES.error.folder, GAME_CARDS_SOUND_NOTICES.error.audio);
 
     this.attachListener();
   }
@@ -35,19 +35,16 @@ export default class CardsField extends BaseComponent {
     });
   }
 
-  private clear(): void {
-    this.cards = [];
-    this.el.innerHTML = '';
-  }
-
   private trainCard(e: MouseEvent): void {
-    const rotateEl = this.getCard(e, '.word-card__rotate');
+    let card = this.getCard(e, '.word-card__rotate');
 
-    if (rotateEl) rotateEl.trainCard(rotateEl);
+    if (card) {
+      card.trainCard();
+    }
     else {
-      const cardFrontEl = this.getCard(e, '.word-card__front');
+      card = this.getCard(e, '.word-card__front');
 
-      if (cardFrontEl && !cardFrontEl.isFlipped) cardFrontEl.playAudio();
+      if (card && !card.isFlipped) card.playAudio();
     }
   }
 
@@ -59,14 +56,22 @@ export default class CardsField extends BaseComponent {
       const card = this.cards[state.currentCardIndex];
 
       if (card === currentCard) {
-        this.audioCorrect.play();
-        card.disableCard();
-        store.dispatch({ type: GAME_CARD_CORRECT });
+        this.execActionsCorrectCard(card);
       } else {
-        this.audioError.play();
-        store.dispatch({ type: GAME_CARD_ERROR });
+        this.execActionsWrongCard();
       }
     }
+  }
+
+  private execActionsCorrectCard(card: WordCard): void {
+    this.audioCorrect.play();
+    card.disableCard();
+    store.dispatch({ type: GAME_CARD_CORRECT });
+  }
+
+  private execActionsWrongCard(): void {
+    this.audioError.play();
+    store.dispatch({ type: GAME_CARD_ERROR });
   }
 
   private getCard(e: Event, selector: string): undefined | WordCard {
@@ -82,7 +87,12 @@ export default class CardsField extends BaseComponent {
     return undefined;
   }
 
-  addCards(wordCards: IWordCard[], categoryName: string): void {
+  private clear(): void {
+    this.cards = [];
+    this.el.innerHTML = '';
+  }
+
+  addCards(wordCards: IWordCardProps[], categoryName: string): void {
     this.clear();
 
     wordCards.forEach((cardProps) => {

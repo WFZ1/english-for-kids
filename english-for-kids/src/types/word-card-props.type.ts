@@ -1,4 +1,4 @@
-export default interface IWordCard {
+export default interface IWordCardProps {
   word: string;
   translation: string;
   image: string;

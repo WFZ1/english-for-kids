@@ -1,10 +1,10 @@
 import './nav-drawer.scss';
 import BaseComponent from '../base/base-component';
-import createElement from '../../shared/create-element';
-import { HAMB_MENU_OPEN_CLASS, NAV_ITEMS } from '../../constants';
 import Link from '../base/link/link';
-import INavItem from '../../types/nav-item.type';
+import createElement from '../../shared/create-element';
 import router from '../base/router';
+import INavItem from '../../types/nav-item.type';
+import { HAMB_MENU_OPEN_CLASS, NAV_ITEMS } from '../../constants';
 
 class NavDrawer extends BaseComponent {
   private readonly navEl: HTMLElement;

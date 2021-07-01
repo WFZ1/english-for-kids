@@ -1,17 +1,13 @@
 import './word-card.scss';
 import BaseComponent from '../base/base-component';
-import IWordCard from '../../types/word-card.type';
-import delay from '../../shared/delay';
 import createElement from '../../shared/create-element';
-import { FLIP_CLASS } from '../../constants';
+import delay from '../../shared/delay';
 import getAudio from '../../shared/get-audio';
+import IWordCardProps from '../../types/word-card-props.type';
+import { CARD_FLIP_CLASS, CARD_FLIP_DURATION } from '../../constants';
 
 export default class WordCard extends BaseComponent {
   isFlipped = false;
-
-  isDisabled = false;
-
-  readonly flipDuration = 250;
 
   private readonly containerEl: HTMLElement;
 
@@ -27,7 +23,7 @@ export default class WordCard extends BaseComponent {
 
   private readonly audioEl: HTMLAudioElement;
 
-  constructor(cardProps: IWordCard, categoryName: string) {
+  constructor(cardProps: IWordCardProps, categoryName: string) {
     super('div', ['word-card']);
 
     this.containerEl = createElement('div', ['word-card__container']);
@@ -39,12 +35,12 @@ export default class WordCard extends BaseComponent {
 
     this.rotateEl = createElement('span', ['word-card__rotate',]);
 
-    this.audioEl = getAudio(categoryName, cardProps.audio);
+    this.audioEl = getAudio(`category-cards/${ categoryName }`, cardProps.audio);
 
     this.render(cardProps, categoryName);
   }
 
-  private render(cardProps: IWordCard, categoryName: string): void {
+  private render(cardProps: IWordCardProps, categoryName: string): void {
     const bgImg = `background-image: url("${ cardProps.image }")`;
 
     this.frontEl.setAttribute('style', bgImg);
@@ -65,15 +61,9 @@ export default class WordCard extends BaseComponent {
     this.backEl.append(this.wordRuEl);
   }
 
-  trainCard(card: WordCard): void {
-    card.flipToBack();
-    this.waitGoOutFromCard(card);
-  }
-
-  private waitGoOutFromCard(card: WordCard): void {
-    card.el.addEventListener('mouseleave', () => {
-      this.flipToFront();
-    }, { once: true });
+  trainCard(): void {
+    this.flipToBack();
+    this.waitGoOutFromCard();
   }
 
   flipToBack(): Promise<void> {
@@ -88,10 +78,16 @@ export default class WordCard extends BaseComponent {
 
   private flip(isFront = false): Promise<void> {
     return new Promise((resolve) => {
-      this.el.classList.toggle(FLIP_CLASS, isFront);
+      this.el.classList.toggle(CARD_FLIP_CLASS, isFront);
 
-      delay(this.flipDuration).then(resolve);
+      delay(CARD_FLIP_DURATION).then(resolve);
     });
+  }
+
+  private waitGoOutFromCard(): void {
+    this.el.addEventListener('mouseleave', () => {
+      this.flipToFront();
+    }, { once: true });
   }
 
   playAudio(): void {
@@ -99,7 +95,6 @@ export default class WordCard extends BaseComponent {
   }
 
   disableCard(): void {
-    this.isDisabled = true;
     this.el.classList.add('word-card_disabled');
   }
 }

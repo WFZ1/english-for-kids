@@ -1,8 +1,8 @@
 export default interface IReduxReducerAction {
   currentPage?: string;
-  gameMode?: string;
   category?: string;
-  currentCardIndex?: number;
+  gameMode?: string;
   randomCards?: number[];
+  currentCardIndex?: number;
   type: string;
 }

@@ -14,8 +14,9 @@ class CategoriesField extends BaseComponent {
 
   private addCategories(): void {
     CATEGORY_CARDS.forEach((categoryProps) => {
-      categoryProps.image = `./assets/images/category-cards/${ categoryProps.handle }/${ categoryProps.image }`;
-      const category = new CategoryCard(categoryProps);
+      const newCategoryProps = { ...categoryProps };
+      newCategoryProps.image = `./assets/images/category-cards/${ categoryProps.handle }/${ categoryProps.image }`;
+      const category = new CategoryCard(newCategoryProps);
 
       this.categories.push(category)
       this.el.append(category.el)

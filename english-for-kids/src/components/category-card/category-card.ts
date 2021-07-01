@@ -10,7 +10,7 @@ export default class CategoryCard extends Link {
   private readonly titleEl: HTMLElement;
 
   constructor(categoryProps: ICategoryCard) {
-    super({ classes: ['category-card'], url: categoryProps.handle, text: '' });
+    super({ classes: ['category-card'], url: categoryProps.handle });
 
     this.imageEl = createElement('img', ['category-card__img']);
     this.titleEl = createElement('h4', ['category-card__title']);

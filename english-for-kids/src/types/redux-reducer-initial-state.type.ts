@@ -1,13 +1,13 @@
 export default interface IReduxReducerInitialState {
   currentPage: string;
-  gameMode: string;
   category: string;
-  currentCardIndex: number;
   isPageChange: boolean;
+  gameMode: string;
   isGameStart: boolean;
+  isEndGame: boolean;
   randomCards: number[];
+  currentCardIndex: number;
   isCardCorrect: boolean;
   isCardError: boolean;
-  isEndGame: boolean;
   countErrors: number;
 };

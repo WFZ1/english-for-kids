@@ -26,17 +26,17 @@ class StateSwitcher extends BaseComponent {
     this.checkboxEl.setAttribute('type', 'checkbox');
     this.checkboxEl.setAttribute('checked', '');
 
-    this.panelEl.dataset.on = 'Train';
-    this.panelEl.dataset.off = 'Play';
+    this.panelEl.dataset.on = TRAIN;
+    this.panelEl.dataset.off = PLAY;
 
     this.el.append(this.checkboxEl, this.panelEl, this.handleEl);
   }
 
   private attachListener(): void {
-    this.checkboxEl.addEventListener('change', () => this.changeState());
+    this.checkboxEl.addEventListener('change', () => this.changeAppState());
   }
 
-  private changeState(): void {
+  private changeAppState(): void {
     if ((this.checkboxEl as HTMLInputElement).checked) {
       store.dispatch({ type: GAME_MODE_CHANGE, gameMode: TRAIN });
     } else {

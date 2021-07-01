@@ -46,9 +46,22 @@ export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 
 export const NAV_ITEM_ACTIVE_CLASS = 'nav-drawer__link_active'
 
-export const FLIP_CLASS = 'word-card_flipped';
+export const CARD_FLIP_CLASS = 'word-card_flipped';
+
+export const CARD_FLIP_DURATION = 250;
 
 export const BTN_START_GAME_TEXT = 'Start game';
+
+export const GAME_CARDS_SOUND_NOTICES = {
+  correct: {
+    folder: 'notices',
+    audio: 'correct.mp3'
+  },
+  error: {
+    folder: 'notices',
+    audio: 'error.mp3'
+  }
+}
 
 export const GAME_END_SPLASH_SCREEN = {
   success: {

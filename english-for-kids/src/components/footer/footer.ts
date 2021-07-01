@@ -1,7 +1,7 @@
 import './footer.scss';
 import BaseComponent from '../base/base-component';
-import createElement from '../../shared/create-element';
 import Link from '../base/link/link';
+import createElement from '../../shared/create-element';
 import { MY_GITHUB, RSSCHOOL_JS_LINK, YEAR_CREATE_APP } from '../../constants';
 
 class Footer extends BaseComponent {
