@@ -5,14 +5,18 @@
   min-height: 250px;
   perspective: 500px;
   cursor: pointer;
+  transition: transform .3s, opacity .5s;
 
   @include at($min, $desk) {
-    transition: transform .3s;
-
     &:hover {
       transform: scale(1.05);
     }
   }
+}
+
+.word-card_disabled {
+  pointer-events: none;
+  opacity: .5;
 }
 
 .word-card__container {
@@ -37,10 +41,16 @@
     0px 2px 4px rgba(0, 0, 0, 0.14);
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: top center;
 }
 
 .word-card__front {
   overflow: hidden;
+  transition: background-size .3s;
+
+  .game-mode-play & {
+    background-size: cover;
+  }
 
   &::before {
     content: '';
@@ -73,6 +83,15 @@
   text-align: center;
   background-color: #fff;
   color: #212529;
+
+  .word-card__front & {
+    transition: opacity .3s, visibility .3s;
+  }
+
+  .game-mode-play .word-card__front & {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .word-card__header_contain {

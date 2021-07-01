@@ -1,0 +1,23 @@
+.game-score {
+  display: flex;
+  max-width: 1350px;
+  width: 100%;
+  height: 40px;
+  overflow-x: hidden;
+  justify-content: flex-end;
+}
+
+.game-score__star {
+  flex-shrink: 0;
+  width: 40px;
+  height: 100%;
+  background-size: 100%;
+}
+
+.game-score__star-success {
+  background-image: url("../../assets/icons/star-fill.svg");
+}
+
+.game-score__star-error {
+  background-image: url("../../assets/icons/star-empty.svg");
+}

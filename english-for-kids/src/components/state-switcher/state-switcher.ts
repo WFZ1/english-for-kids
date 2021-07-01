@@ -2,7 +2,7 @@ import './state-switcher.scss';
 import BaseComponent from '../base/base-component';
 import createElement from '../../shared/create-element';
 import store from '../base/store';
-import { GAME_PLAY, GAME_TRAIN, PLAY, TRAIN } from '../../constants';
+import { GAME_MODE_CHANGE, PLAY, TRAIN } from '../../constants';
 
 class StateSwitcher extends BaseComponent {
   private readonly checkboxEl: HTMLElement;
@@ -38,9 +38,9 @@ class StateSwitcher extends BaseComponent {
 
   private changeState(): void {
     if ((this.checkboxEl as HTMLInputElement).checked) {
-      store.dispatch({ type: GAME_TRAIN, gameState: TRAIN });
+      store.dispatch({ type: GAME_MODE_CHANGE, gameMode: TRAIN });
     } else {
-      store.dispatch({ type: GAME_PLAY, gameState: PLAY });
+      store.dispatch({ type: GAME_MODE_CHANGE, gameMode: PLAY });
     }
   }
 }

@@ -3,14 +3,15 @@ import BaseComponent from '../base-component';
 import IBtn from '../../../types/btn.type';
 
 export default class Btn extends BaseComponent {
-  constructor({ classes, text, type }: IBtn) {
-    super('button', ['btn', ...classes]);
+  constructor(props: IBtn) {
+    super('button', props.classes.concat(['btn']));
 
-    this.render(text, type);
+    this.render(props);
   }
 
-  private render(text: string, type: string): void {
-    this.el.textContent = text;
+  private render({text, type = 'button' }: IBtn): void {
+    if (text) this.el.textContent = text;
+
     this.el.setAttribute('type', type);
   }
 

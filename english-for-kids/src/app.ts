@@ -4,9 +4,11 @@ import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
 import createElement from './shared/create-element';
-import { NAV_ITEM_ACTIVE_CLASS, TRAIN } from './constants';
+import { APP_PAGE_CHANGE, APP_PAGES, NAV_ITEM_ACTIVE_CLASS, TRAIN, GAME_END_SPLASH_SCREEN, GAME_END } from './constants';
 import CategoryPage from './components/category-page/category-page';
 import store from './components/base/store';
+import GameEndSplashScreen from './components/game-end-splash-screen/game-end-splash-screen';
+import delay from './shared/delay';
 
 export default class App {
   private currentPage = '';
@@ -15,17 +17,24 @@ export default class App {
 
   private readonly categoryPage: CategoryPage;
 
+  private readonly gameEndSplashScreenSuccess: GameEndSplashScreen;
+
+  private readonly gameEndSplashScreenFail: GameEndSplashScreen;
+
   constructor(private readonly rootEl: HTMLElement) {
     this.mainEl = createElement('main', ['main', 'page__main']);
 
     this.categoryPage = new CategoryPage(this.mainEl);
+
+    this.gameEndSplashScreenSuccess = new GameEndSplashScreen(['game-end-splash-screen-success'], GAME_END_SPLASH_SCREEN.success);
+    this.gameEndSplashScreenFail = new GameEndSplashScreen(['game-end-splash-screen-fail'], GAME_END_SPLASH_SCREEN.fail);
 
     this.render();
   }
 
   private render(): void {
     this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el);
-    App.initStateApp();
+    this.initStateApp();
   }
 
   private clearMainEl(): void {
@@ -63,6 +72,7 @@ export default class App {
         App.resetStateNavItems();
         this.findHighlightNavItem(props[0]);
 
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.category, category: props[1] });
         this.categoryPage.render(props[1], this.currentPage);
       })
       .add('', () => {
@@ -71,22 +81,62 @@ export default class App {
         App.resetStateNavItems();
         this.highlightNavItem(0);
 
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
         this.mainEl.append(categoriesField.el);
       });
   }
 
-  private static initStateApp(): void {
-    App.changeStateApp();
-    store.subscribe(App.changeStateApp);
+  private initStateApp(): void {
+    this.changeStateApp();
+    store.subscribe(this.changeStateApp.bind(this));
   }
 
-  private static changeStateApp(): void {
-    if (store.getState().gameState === TRAIN) {
+  private changeStateApp(): void {
+    const state = store.getState();
+
+    if (state.gameMode === TRAIN) {
       document.body.classList.remove('game-mode-play');
       document.body.classList.add('game-mode-train');
     } else {
       document.body.classList.remove('game-mode-train');
       document.body.classList.add('game-mode-play');
+
+      if (state.isEndGame) {
+        if (state.countErrors) {
+          this.showMistakesGameEnd();
+        }
+        else {
+          this.showCongratulationsGameEnd();
+        }
+      }
     }
+  }
+
+  private showCongratulationsGameEnd(): void {
+    this.showSplashScreenGameEnd(this.gameEndSplashScreenSuccess);
+  }
+
+  private showMistakesGameEnd(): void {
+    const countGameErrors = store.getState().countErrors;
+    const failText = `${ countGameErrors } ${ GAME_END_SPLASH_SCREEN.fail.text }`;
+
+    this.gameEndSplashScreenFail.changeTitleText(failText);
+
+    this.showSplashScreenGameEnd(this.gameEndSplashScreenFail);
+  }
+
+  private async showSplashScreenGameEnd(splashScreen: GameEndSplashScreen): Promise<void> {
+    this.rootEl.append(splashScreen.el);
+
+    await delay(1000);
+    splashScreen.show();
+    await delay(4000);
+
+    store.dispatch({ type: GAME_END });
+    router.navigate('');
+    splashScreen.hide();
+
+    await delay(1000);
+    splashScreen.el.remove();
   }
 }

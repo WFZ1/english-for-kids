@@ -4,6 +4,7 @@ import IWordCard from '../../types/word-card.type';
 import delay from '../../shared/delay';
 import createElement from '../../shared/create-element';
 import { FLIP_CLASS } from '../../constants';
+import getAudio from '../../shared/get-audio';
 
 export default class WordCard extends BaseComponent {
   isFlipped = false;
@@ -24,6 +25,8 @@ export default class WordCard extends BaseComponent {
 
   readonly rotateEl: HTMLElement;
 
+  private readonly audioEl: HTMLAudioElement;
+
   constructor(cardProps: IWordCard, categoryName: string) {
     super('div', ['word-card']);
 
@@ -35,6 +38,8 @@ export default class WordCard extends BaseComponent {
     this.wordRuEl = createElement('div', ['word-card__header']);
 
     this.rotateEl = createElement('span', ['word-card__rotate',]);
+
+    this.audioEl = getAudio(categoryName, cardProps.audio);
 
     this.render(cardProps, categoryName);
   }
@@ -54,7 +59,9 @@ export default class WordCard extends BaseComponent {
     this.el.append(this.containerEl);
     this.containerEl.append(this.frontEl, this.backEl);
 
-    this.frontEl.append(this.wordEnEl, this.rotateEl);
+    this.frontEl.append(this.wordEnEl);
+    this.wordEnEl.append(this.rotateEl);
+
     this.backEl.append(this.wordRuEl);
   }
 
@@ -87,8 +94,12 @@ export default class WordCard extends BaseComponent {
     });
   }
 
-  static playAudio(src: string): void {
-    const audio = new Audio(src);
-    audio.play();
+  playAudio(): void {
+    this.audioEl.play();
+  }
+
+  disableCard(): void {
+    this.isDisabled = true;
+    this.el.classList.add('word-card_disabled');
   }
 }

@@ -1,14 +1,37 @@
-export const GAME_TRAIN = 'game/train';
+export const APP_PAGE_CHANGE = 'app/pageChange';
+
+export const GAME_MODE_CHANGE = 'game/modeChange';
+
+export const GAME_START = 'game/start';
+
+export const GAME_END = 'game/end';
+
+export const GAME_CARD_CORRECT = 'game/cardCorrect';
+
+export const GAME_CARD_ERROR = 'game/cardError';
+
+export const INITIAL_STATE = {
+  currentPage: '',
+  gameMode: 'train',
+  category: '',
+  currentCardIndex: 0,
+  isPageChange: false,
+  isGameStart: false,
+  isEndGame: false,
+  randomCards: [],
+  isCardCorrect: false,
+  isCardError: false,
+  countErrors: 0
+};
 
 export const TRAIN = 'train';
 
-export const GAME_PLAY = 'game/play';
-
 export const PLAY = 'play';
 
-export const INITIAL_STATE = {
-  gameState: 'train'
-};
+export const APP_PAGES = {
+  home: '',
+  category: 'category'
+}
 
 export const MY_GITHUB = {
   url: 'https://github.com/WFZ1',
@@ -24,6 +47,21 @@ export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 export const NAV_ITEM_ACTIVE_CLASS = 'nav-drawer__link_active'
 
 export const FLIP_CLASS = 'word-card_flipped';
+
+export const BTN_START_GAME_TEXT = 'Start game';
+
+export const GAME_END_SPLASH_SCREEN = {
+  success: {
+    text: 'Congratulations! You win!',
+    image: 'assets/images/game-end-state/success.jpg',
+    audio: 'assets/audio/notices/success.mp3'
+  },
+  fail: {
+    text: 'Errors',
+    image: 'assets/images/game-end-state/failure.jpg',
+    audio: 'assets/audio/notices/failure.mp3'
+  }
+}
 
 export const CATEGORY_CARDS = [
   {

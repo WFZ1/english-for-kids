@@ -11,7 +11,7 @@ export default class HamburgerMenu extends Btn {
   private readonly itemBotEl: HTMLElement;
 
   constructor() {
-    super({ classes: ['hamburger-menu'], text: '', type: '' });
+    super({ classes: ['hamburger-menu'] });
 
     this.itemTopEl = createElement('span', [
       'hamburger-menu__item',
