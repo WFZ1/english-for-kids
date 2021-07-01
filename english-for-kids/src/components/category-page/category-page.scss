@@ -1,9 +1,19 @@
 @import "../../breakpoints.scss";
 
+.category-page .main {
+  max-width: 1430px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+
+  @include at($min, $tablet) {
+    padding: 0 40px;
+  }
+}
+
 .category-page__title {
-  max-width: 1400px;
-  margin: 20px auto;
-  padding: 0 20px;
+  margin: 20px 0;
   text-align: center;
   text-transform: uppercase;
   font-size: 26px;
@@ -15,10 +25,6 @@
       margin-bottom: 0;
     }
   }
-}
-
-.category-page__game-score {
-  margin: 0 auto;
 }
 
 .category-page__btn-start {
