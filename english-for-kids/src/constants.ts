@@ -30,7 +30,8 @@ export const PLAY = 'play';
 
 export const APP_PAGES = {
   home: '',
-  category: 'category'
+  category: 'category',
+  statistic: 'statistic'
 }
 
 export const MY_GITHUB = {
@@ -543,3 +544,18 @@ CATEGORY_CARDS.forEach((category) => {
     url: `category/${ category.handle }`
   });
 });
+
+NAV_ITEMS.push({
+  text: 'Statistic Page',
+  url: 'statistic',
+});
+
+export const STATISTIC_TABLE_TITLES = [
+  'Category',
+  'Word',
+  'Translation',
+  'Trained',
+  'Correct',
+  'Wrong',
+  'Hit %'
+];

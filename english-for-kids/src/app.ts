@@ -5,6 +5,7 @@ import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import categoriesField from './components/categories-field/categories-field';
 import CategoryPage from './components/category-page/category-page';
+import StatisticPage from './components/statistic-page/statistic-page';
 import GameEndSplashScreen from './components/game-end-splash-screen/game-end-splash-screen';
 import createElement from './shared/create-element';
 import delay from './shared/delay';
@@ -15,6 +16,8 @@ export default class App {
 
   private readonly categoryPage: CategoryPage;
 
+  private readonly statisticPage: StatisticPage;
+
   private readonly gameEndSplashScreenSuccess: GameEndSplashScreen;
 
   private readonly gameEndSplashScreenFail: GameEndSplashScreen;
@@ -23,6 +26,7 @@ export default class App {
     this.mainEl = createElement('main', ['main', 'page__main']);
 
     this.categoryPage = new CategoryPage(this.mainEl);
+    this.statisticPage = new StatisticPage(this.mainEl);
 
     this.gameEndSplashScreenSuccess = new GameEndSplashScreen(['game-end-splash-screen-success'], GAME_END_SPLASH_SCREEN.success);
     this.gameEndSplashScreenFail = new GameEndSplashScreen(['game-end-splash-screen-fail'], GAME_END_SPLASH_SCREEN.fail);
@@ -41,6 +45,7 @@ export default class App {
         this.clearMainEl();
 
         document.body.classList.remove('home-page');
+        document.body.classList.remove('statistic-page');
         document.body.classList.add('category-page');
 
         App.resetStateNavItems();
@@ -49,10 +54,23 @@ export default class App {
         store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.category, category: props[1] });
         this.categoryPage.render(props[1]);
       })
+      .add('statistic', () => {
+        this.clearMainEl();
+        document.body.classList.remove('home-page');
+        document.body.classList.remove('category-page');
+        document.body.classList.add('statistic-page');
+
+        App.resetStateNavItems();
+        App.highlightNavItem(navDrawer.navItems.length - 1);
+
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.statistic });
+        this.statisticPage.render();
+      })
       .add('', () => {
         this.clearMainEl();
 
         document.body.classList.remove('category-page');
+        document.body.classList.remove('statistic-page');
         document.body.classList.add('home-page');
 
         App.resetStateNavItems();
