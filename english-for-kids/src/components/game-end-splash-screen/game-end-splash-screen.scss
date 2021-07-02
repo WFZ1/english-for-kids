@@ -1,3 +1,5 @@
+@import "../../breakpoints.scss";
+
 .game-end-splash-screen {
   position: absolute;
   top: 0;
@@ -20,9 +22,18 @@
 }
 
 .game-end-splash-screen__title {
-  margin: 0 0 80px;
-  font-size: 46px;
+  margin: 0 0 40px;
+  font-size: 24px;
   font-weight: 500;
   text-shadow: 3px 3px 1px #e6e6e6;
   color: #f9c464;
+
+  @include at ($min, $phone) {
+    font-size: 46px;
+    margin-bottom: 80px;
+  }
+}
+
+.game-end-splash-screen__img {
+  max-width: 70%;
 }
