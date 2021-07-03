@@ -20,4 +20,8 @@ export default class StatisticTable extends BaseComponent {
   private render(): void {
     this.el.append(this.statisticTableHead.el, this.statisticTableBody.el);
   }
+
+  updateBody(): void {
+    this.statisticTableBody.render();
+  }
 }

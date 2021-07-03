@@ -43,6 +43,8 @@ export const RSSCHOOL_JS_LINK = 'https://rs.school/js/';
 
 export const YEAR_CREATE_APP = '\'21';
 
+export const PERCENT_100 = 100;
+
 export const HAMB_MENU_OPEN_CLASS = 'hamburger-menu-opened';
 
 export const NAV_ITEM_ACTIVE_CLASS = 'nav-drawer__link_active'
@@ -559,3 +561,9 @@ export const STATISTIC_TABLE_TITLES = [
   'Wrong',
   'Hit %'
 ];
+
+export const EMPTY_STATISTICAL_DATA = {
+  trained: 0,
+  correct: 0,
+  wrong: 0
+}

@@ -1,18 +1,19 @@
 import "./statistic-table-row.scss";
 import BaseComponent from "../base/base-component";
 import StatisticTableCell from "../statistic-table-cell/statistic-table-cell";
+import IStatisticTableRowValues from "../../types/statistic-table-row-values.type";
 
 export default class StatisticTableRow extends BaseComponent {
   private readonly cells: StatisticTableCell[] = [];
 
-  constructor(rowData: string[], cellSelector: string) {
+  constructor(rowData: IStatisticTableRowValues | string[], cellSelector: string) {
     super('tr', ['statistic-table-row']);
 
     this.render(rowData, cellSelector);
   }
 
-  private render(rowData: string[], cellSelector: string): void {
-    rowData.forEach((text) => this.addCell(cellSelector, text));
+  private render(rowData: IStatisticTableRowValues | string[], cellSelector: string): void {
+    Object.values(rowData).forEach((text) => this.addCell(cellSelector, text));
   }
 
   private addCell(cellSelector: string, text: string) {

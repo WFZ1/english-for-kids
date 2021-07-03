@@ -4,7 +4,9 @@ import WordCard from '../word-card/word-card';
 import store from '../base/store';
 import getAudio from '../../shared/get-audio';
 import getContainEl from '../../shared/get-contain-el';
+import getGameStatisticData from '../../shared/get-game-statistic-data';
 import IWordCardProps from '../../types/word-card-props.type';
+import IGameStatistic from '../../types/game-statistic.type';
 import { GAME_CARDS_SOUND_NOTICES, GAME_CARD_CORRECT, GAME_CARD_ERROR, TRAIN } from '../../constants';
 
 export default class CardsField extends BaseComponent {
@@ -27,10 +29,10 @@ export default class CardsField extends BaseComponent {
     this.el.addEventListener('click', (e) => {
       const state = store.getState();
 
-      if (store.getState().gameMode === TRAIN) {
-        this.trainCard(e)
+      if (state.gameMode === TRAIN) {
+        this.trainCard(e);
       } else if (state.isGameStart) {
-        this.checkCard(e)
+        this.checkCard(e);
       }
     });
   }
@@ -40,11 +42,17 @@ export default class CardsField extends BaseComponent {
 
     if (card) {
       card.trainCard();
+
+      CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'trained');
     }
     else {
       card = this.getCard(e, '.word-card__front');
 
-      if (card && !card.isFlipped) card.playAudio();
+      if (card && !card.isFlipped) {
+        card.playAudio();
+
+        CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'trained');
+      }
     }
   }
 
@@ -58,20 +66,27 @@ export default class CardsField extends BaseComponent {
       if (card === currentCard) {
         this.execActionsCorrectCard(card);
       } else {
-        this.execActionsWrongCard();
+        this.execActionsWrongCard(card);
       }
     }
   }
 
   private execActionsCorrectCard(card: WordCard): void {
     this.audioCorrect.play();
+
     card.disableCard();
+
     store.dispatch({ type: GAME_CARD_CORRECT });
+
+    CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'correct');
   }
 
-  private execActionsWrongCard(): void {
+  private execActionsWrongCard(card: WordCard): void {
     this.audioError.play();
+
     store.dispatch({ type: GAME_CARD_ERROR });
+
+    CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'wrong');
   }
 
   private getCard(e: Event, selector: string): undefined | WordCard {
@@ -85,6 +100,36 @@ export default class CardsField extends BaseComponent {
     }
 
     return undefined;
+  }
+
+  private static updateGameStatisticInStorage(word: string | undefined | null, statisticType: string): void {
+    if (!word) return;
+
+    const { category } = store.getState();
+    const key = `${ category }__${ word }`;
+    const data = getGameStatisticData(category, word);
+    const newData = CardsField.updateStatisticData(data, statisticType);
+
+    localStorage.setItem(key, JSON.stringify(newData));
+  }
+
+  private static updateStatisticData(data: IGameStatistic, statisticType: string): IGameStatistic {
+    const newData = { ...data };
+
+    switch (statisticType) {
+      case 'trained':
+        newData.trained++;
+        break;
+      case 'correct':
+        newData.correct++;
+        break;
+      case 'wrong':
+        newData.wrong++;
+        break;
+      default:
+    }
+
+    return newData;
   }
 
   private clear(): void {

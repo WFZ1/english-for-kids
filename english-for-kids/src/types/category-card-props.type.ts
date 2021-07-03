@@ -1,4 +1,4 @@
-export default interface ICategoryCard {
+export default interface ICategoryCardProps {
   handle: string;
   title: string;
   image: string;

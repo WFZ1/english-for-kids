@@ -15,7 +15,7 @@ export default class WordCard extends BaseComponent {
 
   private readonly backEl: HTMLElement;
 
-  private readonly wordEnEl: HTMLElement;
+  readonly wordEnEl: HTMLElement;
 
   private readonly wordRuEl: HTMLElement;
 

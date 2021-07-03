@@ -14,6 +14,8 @@ export default class StatisticPage {
   }
 
   render(): void {
+    this.statisticTable.updateBody();
+
     this.rootEl.append(this.containerEl);
     this.containerEl.append(this.statisticTable.el);
   }
