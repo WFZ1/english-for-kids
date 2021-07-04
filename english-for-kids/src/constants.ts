@@ -55,6 +55,11 @@ export const CARD_FLIP_DURATION = 250;
 
 export const BTN_START_GAME_TEXT = 'Start game';
 
+export const STATISTIC_CELL_SORT_CLASSES = {
+  descend: 'statistic-table-cell_sort_descend',
+  ascend: 'statistic-table-cell_sort_ascend'
+};
+
 export const GAME_CARDS_SOUND_NOTICES = {
   correct: {
     folder: 'notices',

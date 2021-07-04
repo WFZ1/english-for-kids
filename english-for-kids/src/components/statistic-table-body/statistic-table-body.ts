@@ -54,4 +54,36 @@ export default class StatisticTableBody extends BaseComponent {
     this.rows = [];
     this.el.innerHTML = '';
   }
+
+  handleSort(colIndex: number, sortType: string): void {
+    const cellVal = this.rows[0].cells[colIndex].el.textContent;
+
+    if (!cellVal) return;
+
+    const typeCell = Number.isNaN(+cellVal) ? 'str' : 'num';
+
+    this.rows.sort((a, b) => StatisticTableBody.sortRows(a, b, sortType, colIndex, typeCell));
+
+    this.updateEl();
+  }
+
+  private static sortRows(a: StatisticTableRow, b: StatisticTableRow, sortType: string, colIndex: number, typeCell: string): number {
+    const cells = {
+      a: a.cells[colIndex].el.textContent,
+      b: b.cells[colIndex].el.textContent
+    };
+
+    if (!cells.a || !cells.b) return 0;
+
+    if (typeCell === 'str') {
+      return (sortType === 'descend') ? cells.a.localeCompare(cells.b) : cells.b.localeCompare(cells.a);
+    }
+
+    return (sortType === 'descend') ? +cells.b - +cells.a : +cells.a - +cells.b;
+  }
+
+  private updateEl(): void {
+    this.el.innerHTML = '';
+    this.rows.forEach((row) => this.el.append(row.el));
+  }
 }

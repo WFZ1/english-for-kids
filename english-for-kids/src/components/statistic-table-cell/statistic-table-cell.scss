@@ -9,8 +9,33 @@
   color: #fff;
   background-color: #00bf82;
   cursor: pointer;
+  user-select: none;
+  transition: background-color .5s;
+
+  &:hover {
+    background-color: #00d390;
+  }
+}
+
+.statistic-table-cell_sort_descend::after,
+.statistic-table-cell_sort_ascend::after {
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
+
+.statistic-table-cell_sort_descend::after {
+  content: '▼';
+}
+
+.statistic-table-cell_sort_ascend::after {
+  content: '▲';
 }
 
 .statistic-table-cell_view_td {
   padding: 10px 20px;
+  transition: background-color .1s;
+
+  &:hover {
+    background-color: #888;
+  }
 }

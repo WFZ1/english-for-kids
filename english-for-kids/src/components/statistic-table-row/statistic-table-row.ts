@@ -4,7 +4,7 @@ import StatisticTableCell from "../statistic-table-cell/statistic-table-cell";
 import IStatisticTableRowValues from "../../types/statistic-table-row-values.type";
 
 export default class StatisticTableRow extends BaseComponent {
-  private readonly cells: StatisticTableCell[] = [];
+  readonly cells: StatisticTableCell[] = [];
 
   constructor(rowData: IStatisticTableRowValues | string[], cellSelector: string) {
     super('tr', ['statistic-table-row']);

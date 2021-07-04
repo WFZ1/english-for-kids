@@ -1,0 +1,8 @@
+.statistic-table-body .statistic-table-row {
+  transition: background-color .1s;
+
+  &:hover {
+    color: #fff;
+    background-color: #b5b5b5;
+  }
+}
