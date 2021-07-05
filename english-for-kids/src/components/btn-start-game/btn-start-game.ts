@@ -1,11 +1,14 @@
 import './btn-start-game.scss';
-import Btn from "../base/btn/btn";
+import Btn from '../base/btn/btn';
 import store from '../base/store';
 import { BTN_START_GAME_TEXT, TRAIN } from '../../constants';
 
 export default class BtnStartGame extends Btn {
-  constructor (classes: string[]) {
-    super({ classes: classes.concat(['btn-start-game']), text: BTN_START_GAME_TEXT });
+  constructor(classes: string[]) {
+    super({
+      classes: classes.concat(['btn-start-game']),
+      text: BTN_START_GAME_TEXT,
+    });
 
     this.subscribeToChangeAppState();
   }

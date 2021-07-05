@@ -9,7 +9,7 @@ export default class Btn extends BaseComponent {
     this.render(props);
   }
 
-  private render({text, type = 'button', title }: IBtn): void {
+  private render({ text, type = 'button', title }: IBtn): void {
     if (text) this.el.textContent = text;
     if (title) this.el.title = title;
 

@@ -17,8 +17,17 @@ class Footer extends BaseComponent {
     super('footer', ['footer']);
 
     this.containerEl = createElement('div', ['footer__container']);
-    this.githubLinkEl = new Link({ classes: ['footer__github'], url: MY_GITHUB.url, text: MY_GITHUB.name, target: '_blank' });
-    this.rssLinkEl = new Link({ classes: ['footer__rsschool'], url: RSSCHOOL_JS_LINK, target: '_blank' });
+    this.githubLinkEl = new Link({
+      classes: ['footer__github'],
+      url: MY_GITHUB.url,
+      text: MY_GITHUB.name,
+      target: '_blank',
+    });
+    this.rssLinkEl = new Link({
+      classes: ['footer__rsschool'],
+      url: RSSCHOOL_JS_LINK,
+      target: '_blank',
+    });
     this.rssYearEl = createElement('span', ['footer__rsschool-year']);
 
     this.render();

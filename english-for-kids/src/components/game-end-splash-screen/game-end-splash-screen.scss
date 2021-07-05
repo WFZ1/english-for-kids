@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .game-end-splash-screen {
   position: fixed;
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  transition: opacity .3s, visibility .3s;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
 .game-end-splash-screen_hidden {
@@ -28,7 +28,7 @@
   text-shadow: 3px 3px 1px #e6e6e6;
   color: #f9c464;
 
-  @include at ($min, $phone) {
+  @include at($min, $phone) {
     font-size: 46px;
     margin-bottom: 80px;
   }

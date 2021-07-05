@@ -1,8 +1,20 @@
-import { APP_DIFFICULT_CATEGORY, APP_PAGE_CHANGE, GAME_CARD_CORRECT, GAME_CARD_ERROR, GAME_END, GAME_MODE_CHANGE, GAME_START, INITIAL_STATE } from "../../constants";
-import IReduxReducerAction from "../../types/redux-reducer-action.type";
-import IReduxReducerInitialState from "../../types/redux-reducer-initial-state.type";
+import {
+  APP_DIFFICULT_CATEGORY,
+  APP_PAGE_CHANGE,
+  GAME_CARD_CORRECT,
+  GAME_CARD_ERROR,
+  GAME_END,
+  GAME_MODE_CHANGE,
+  GAME_START,
+  INITIAL_STATE,
+} from '../../constants';
+import IReduxReducerAction from '../../types/redux-reducer-action.type';
+import IReduxReducerInitialState from '../../types/redux-reducer-initial-state.type';
 
-function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IReduxReducerAction): IReduxReducerInitialState {
+function reducer(
+  state: IReduxReducerInitialState = INITIAL_STATE,
+  action: IReduxReducerAction,
+): IReduxReducerInitialState {
   switch (action.type) {
     case APP_PAGE_CHANGE: {
       return {
@@ -12,7 +24,7 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         isPageChange: true,
         isGameStart: false,
         isCardCorrect: false,
-        isCardError: false
+        isCardError: false,
       };
     }
     case GAME_MODE_CHANGE:
@@ -20,7 +32,7 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         ...state,
         isPageChange: false,
         gameMode: action.gameMode || '',
-        isGameStart: false
+        isGameStart: false,
       };
     case GAME_START:
       return {
@@ -32,7 +44,7 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         currentCardIndex: action.currentCardIndex || 0,
         isCardCorrect: false,
         isCardError: false,
-        countErrors: 0
+        countErrors: 0,
       };
     case GAME_END:
       return {
@@ -56,7 +68,7 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         randomCards,
         currentCardIndex: randomCards[randomCards.length - 1],
         isCardCorrect: true,
-        isCardError: false
+        isCardError: false,
       };
     }
     case GAME_CARD_ERROR:
@@ -64,15 +76,15 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         ...state,
         isCardCorrect: false,
         isCardError: true,
-        countErrors: state.countErrors + 1
+        countErrors: state.countErrors + 1,
       };
     case APP_DIFFICULT_CATEGORY: {
       const difficultWords = action.difficultWords?.slice() || [];
 
       return {
         ...state,
-        difficultWords
-      }
+        difficultWords,
+      };
     }
     default:
       return state;

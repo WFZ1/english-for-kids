@@ -7,7 +7,12 @@ import getContainEl from '../../shared/get-contain-el';
 import getGameStatisticData from '../../shared/get-game-statistic-data';
 import IWordCardProps from '../../types/word-card-props.type';
 import IGameStatistic from '../../types/game-statistic.type';
-import { GAME_CARDS_SOUND_NOTICES, GAME_CARD_CORRECT, GAME_CARD_ERROR, TRAIN } from '../../constants';
+import {
+  GAME_CARDS_SOUND_NOTICES,
+  GAME_CARD_CORRECT,
+  GAME_CARD_ERROR,
+  TRAIN,
+} from '../../constants';
 
 export default class CardsField extends BaseComponent {
   cards: WordCard[] = [];
@@ -19,8 +24,14 @@ export default class CardsField extends BaseComponent {
   constructor() {
     super('div', ['cards-field']);
 
-    this.audioCorrect = getAudio(GAME_CARDS_SOUND_NOTICES.correct.folder, GAME_CARDS_SOUND_NOTICES.correct.audio);
-    this.audioError = getAudio(GAME_CARDS_SOUND_NOTICES.error.folder, GAME_CARDS_SOUND_NOTICES.error.audio);
+    this.audioCorrect = getAudio(
+      GAME_CARDS_SOUND_NOTICES.correct.folder,
+      GAME_CARDS_SOUND_NOTICES.correct.audio,
+    );
+    this.audioError = getAudio(
+      GAME_CARDS_SOUND_NOTICES.error.folder,
+      GAME_CARDS_SOUND_NOTICES.error.audio,
+    );
 
     this.attachListener();
   }
@@ -44,8 +55,7 @@ export default class CardsField extends BaseComponent {
       card.trainCard();
 
       CardsField.updateGameStatisticInStorage(card, 'trained');
-    }
-    else {
+    } else {
       card = this.getCard(e, '.word-card__front');
 
       if (card && !card.isFlipped) {
@@ -102,20 +112,26 @@ export default class CardsField extends BaseComponent {
     return undefined;
   }
 
-  private static updateGameStatisticInStorage(card: WordCard, statisticType: string): void {
+  private static updateGameStatisticInStorage(
+    card: WordCard,
+    statisticType: string,
+  ): void {
     const { category } = card.frontEl.dataset;
     const word = card.wordEnEl.textContent;
 
     if (!word || !category) return;
 
-    const key = `${ category }__${ word }`;
+    const key = `${category}__${word}`;
     const data = getGameStatisticData(category, word);
     const newData = CardsField.updateStatisticData(data, statisticType);
 
     localStorage.setItem(key, JSON.stringify(newData));
   }
 
-  private static updateStatisticData(data: IGameStatistic, statisticType: string): IGameStatistic {
+  private static updateStatisticData(
+    data: IGameStatistic,
+    statisticType: string,
+  ): IGameStatistic {
     const newData = { ...data };
 
     switch (statisticType) {
@@ -147,7 +163,7 @@ export default class CardsField extends BaseComponent {
 
   addCard(cardProps: IWordCardProps, categoryName: string): void {
     const newCardProps = { ...cardProps };
-    newCardProps.image = `assets/images/category-cards/${ categoryName }/${ cardProps.image }`
+    newCardProps.image = `assets/images/category-cards/${categoryName}/${cardProps.image}`;
 
     const wordCard = new WordCard(newCardProps, categoryName);
 

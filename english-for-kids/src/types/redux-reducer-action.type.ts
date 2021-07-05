@@ -1,4 +1,4 @@
-import ICategoryWord from "./category-word.type";
+import ICategoryWord from './category-word.type';
 
 export default interface IReduxReducerAction {
   currentPage?: string;

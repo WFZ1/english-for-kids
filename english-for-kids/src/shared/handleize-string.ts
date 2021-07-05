@@ -7,5 +7,5 @@ export default function handleizeString(str: string): string {
     return '';
   });
 
-  return newStr
+  return newStr;
 }

@@ -8,7 +8,12 @@ import delay from '../../shared/delay';
 import handleizeString from '../../shared/handleize-string';
 import IWordCardProps from '../../types/word-card-props.type';
 import IReduxReducerInitialState from '../../types/redux-reducer-initial-state.type';
-import { CATEGORY_CARDS, GAME_START, STATISTIC_PAGE_URL, WORD_CARDS } from '../../constants';
+import {
+  CATEGORY_CARDS,
+  GAME_START,
+  STATISTIC_PAGE_URL,
+  WORD_CARDS,
+} from '../../constants';
 
 export default class CategoryPage {
   private readonly cardsField: CardsField;
@@ -38,16 +43,22 @@ export default class CategoryPage {
     if (category !== STATISTIC_PAGE_URL) {
       const cardsData = CategoryPage.getCategoryCardsData(category);
       this.cardsField.addCards(cardsData, category);
-    }
-    else {
+    } else {
       this.handleDifficultWordsCategory(state);
     }
 
-    this.rootEl.append(this.titleEl, this.gameScore.el, this.cardsField.el, this.btnStartGame.el);
+    this.rootEl.append(
+      this.titleEl,
+      this.gameScore.el,
+      this.cardsField.el,
+      this.btnStartGame.el,
+    );
   }
 
   private static getCategoryCardsData(categoryName: string): IWordCardProps[] {
-    const categoryIndex = CATEGORY_CARDS.findIndex((card) => card.handle === categoryName);
+    const categoryIndex = CATEGORY_CARDS.findIndex(
+      (card) => card.handle === categoryName,
+    );
     const data = WORD_CARDS[categoryIndex];
     return data;
   }
@@ -81,11 +92,9 @@ export default class CategoryPage {
       this.gameScore.success();
       await delay(500);
       this.playAudioCurrentCard();
-    }
-    else if (state.isCardError) {
+    } else if (state.isCardError) {
       this.gameScore.error();
-    }
-    else if (state.isEndGame || state.isPageChange) {
+    } else if (state.isEndGame || state.isPageChange) {
       this.gameScore.reset();
     }
   }
@@ -107,7 +116,11 @@ export default class CategoryPage {
       const randomArr = this.createCardsRandomArray();
       this.btnStartGame.changeView();
 
-      store.dispatch({ type: GAME_START, randomCards: randomArr, currentCardIndex: randomArr[randomArr.length - 1] });
+      store.dispatch({
+        type: GAME_START,
+        randomCards: randomArr,
+        currentCardIndex: randomArr[randomArr.length - 1],
+      });
     }
   }
 

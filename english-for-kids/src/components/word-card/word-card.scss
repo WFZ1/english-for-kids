@@ -1,11 +1,11 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .word-card {
   width: 300px;
   min-height: 250px;
   perspective: 500px;
   cursor: pointer;
-  transition: transform .3s, opacity .5s;
+  transition: transform 0.3s, opacity 0.5s;
 
   @include at($min, $desk) {
     &:hover {
@@ -16,7 +16,7 @@
 
 .word-card_disabled {
   pointer-events: none;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .word-card__container {
@@ -46,7 +46,7 @@
 
 .word-card__front {
   overflow: hidden;
-  transition: background-size .3s;
+  transition: background-size 0.3s;
 
   .game-mode-play & {
     background-size: cover;
@@ -85,7 +85,7 @@
   color: #212529;
 
   .word-card__front & {
-    transition: opacity .3s, visibility .3s;
+    transition: opacity 0.3s, visibility 0.3s;
   }
 
   .game-mode-play .word-card__front & {
@@ -104,12 +104,12 @@
   right: 5px;
   width: 50px;
   height: 50px;
-  background-image: url("../../assets/icons/rotate.svg");
+  background-image: url('../../assets/icons/rotate.svg');
   background-size: 32px;
   background-repeat: no-repeat;
   background-position: center;
   filter: grayscale(1);
-  transition: filter .5s;
+  transition: filter 0.5s;
 
   &:hover {
     filter: none;

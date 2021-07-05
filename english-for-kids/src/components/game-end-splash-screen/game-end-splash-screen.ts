@@ -1,4 +1,4 @@
-import './game-end-splash-screen.scss'
+import './game-end-splash-screen.scss';
 import BaseComponent from '../base/base-component';
 import createElement from '../../shared/create-element';
 import IGameEndSplashScreenProps from '../../types/game-end-splash-screen-props.type';
@@ -11,7 +11,13 @@ export default class GameEndSplashScreen extends BaseComponent {
   private readonly audioEl: HTMLAudioElement;
 
   constructor(classes: string[] = [], props: IGameEndSplashScreenProps) {
-    super('div', classes.concat(['game-end-splash-screen', 'game-end-splash-screen_hidden']));
+    super(
+      'div',
+      classes.concat([
+        'game-end-splash-screen',
+        'game-end-splash-screen_hidden',
+      ]),
+    );
 
     this.titleEl = createElement('p', ['game-end-splash-screen__title']);
     this.imageEl = createElement('img', ['game-end-splash-screen__img']);

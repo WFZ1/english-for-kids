@@ -1,4 +1,4 @@
-import ICategoryWord from "./category-word.type";
+import ICategoryWord from './category-word.type';
 
 export default interface IReduxReducerInitialState {
   currentPage: string;
@@ -13,4 +13,4 @@ export default interface IReduxReducerInitialState {
   isCardError: boolean;
   countErrors: number;
   difficultWords: ICategoryWord[];
-};
+}

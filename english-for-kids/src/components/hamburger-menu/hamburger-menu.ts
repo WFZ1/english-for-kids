@@ -31,6 +31,8 @@ export default class HamburgerMenu extends Btn {
 
   private build(): void {
     this.el.append(this.itemTopEl, this.itemMidEl, this.itemBotEl);
-    this.attachHandler(() => document.body.classList.toggle(HAMB_MENU_OPEN_CLASS));
+    this.attachHandler(() =>
+      document.body.classList.toggle(HAMB_MENU_OPEN_CLASS),
+    );
   }
 }

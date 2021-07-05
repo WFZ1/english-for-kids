@@ -17,7 +17,10 @@ class Router {
     this.listen();
   }
 
-  add(path: string | RegExp, callback: (props: RegExpMatchArray) => void): Router {
+  add(
+    path: string | RegExp,
+    callback: (props: RegExpMatchArray) => void,
+  ): Router {
     this.routes.push({ path, callback });
     return this;
   }

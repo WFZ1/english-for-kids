@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .nav-drawer__nav {
   position: fixed;
@@ -13,7 +13,7 @@
   background-image: linear-gradient(40deg, #00bf82, #0099ae);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 
-  @include at ($min, $tablet) {
+  @include at($min, $tablet) {
     width: 380px;
   }
 
@@ -45,7 +45,7 @@
   padding: 0;
   list-style: none;
 
-  @include at ($min, $tablet) {
+  @include at($min, $tablet) {
     margin-left: 60px;
   }
 }

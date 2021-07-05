@@ -30,18 +30,21 @@ export default class WordCard extends BaseComponent {
     this.frontEl = createElement('div', ['word-card__front']);
     this.backEl = createElement('div', ['word-card__back']);
 
-    this.wordEnEl = createElement('div', ['word-card__header', 'word-card__header_contain']);
+    this.wordEnEl = createElement('div', [
+      'word-card__header',
+      'word-card__header_contain',
+    ]);
     this.wordRuEl = createElement('div', ['word-card__header']);
 
-    this.rotateEl = createElement('span', ['word-card__rotate',]);
+    this.rotateEl = createElement('span', ['word-card__rotate']);
 
-    this.audioEl = getAudio(`category-cards/${ categoryName }`, cardProps.audio);
+    this.audioEl = getAudio(`category-cards/${categoryName}`, cardProps.audio);
 
     this.render(cardProps, categoryName);
   }
 
   private render(cardProps: IWordCardProps, categoryName: string): void {
-    const bgImg = `background-image: url("${ cardProps.image }")`;
+    const bgImg = `background-image: url("${cardProps.image}")`;
 
     this.frontEl.setAttribute('style', bgImg);
     this.backEl.setAttribute('style', bgImg);
@@ -85,9 +88,13 @@ export default class WordCard extends BaseComponent {
   }
 
   private waitGoOutFromCard(): void {
-    this.el.addEventListener('mouseleave', () => {
-      this.flipToFront();
-    }, { once: true });
+    this.el.addEventListener(
+      'mouseleave',
+      () => {
+        this.flipToFront();
+      },
+      { once: true },
+    );
   }
 
   playAudio(): void {

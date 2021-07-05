@@ -1,7 +1,10 @@
-import "./statistic-table-head.scss";
-import BaseComponent from "../base/base-component";
-import StatisticTableRow from "../statistic-table-row/statistic-table-row";
-import { STATISTIC_CELL_SORT_CLASSES, STATISTIC_TABLE_TITLES } from "../../constants";
+import './statistic-table-head.scss';
+import BaseComponent from '../base/base-component';
+import StatisticTableRow from '../statistic-table-row/statistic-table-row';
+import {
+  STATISTIC_CELL_SORT_CLASSES,
+  STATISTIC_TABLE_TITLES,
+} from '../../constants';
 
 export default class StatisticTableHead extends BaseComponent {
   readonly statisticTableRow: StatisticTableRow;
@@ -9,7 +12,10 @@ export default class StatisticTableHead extends BaseComponent {
   constructor() {
     super('thead', ['statistic-table-head']);
 
-    this.statisticTableRow = new StatisticTableRow(STATISTIC_TABLE_TITLES, 'th');
+    this.statisticTableRow = new StatisticTableRow(
+      STATISTIC_TABLE_TITLES,
+      'th',
+    );
 
     this.render();
   }
@@ -27,12 +33,10 @@ export default class StatisticTableHead extends BaseComponent {
     if (target.classList.contains(STATISTIC_CELL_SORT_CLASSES.descend)) {
       target.classList.remove(STATISTIC_CELL_SORT_CLASSES.descend);
       target.classList.add(STATISTIC_CELL_SORT_CLASSES.ascend);
-    }
-    else if (target.classList.contains(STATISTIC_CELL_SORT_CLASSES.ascend)) {
+    } else if (target.classList.contains(STATISTIC_CELL_SORT_CLASSES.ascend)) {
       target.classList.remove(STATISTIC_CELL_SORT_CLASSES.ascend);
       target.classList.add(STATISTIC_CELL_SORT_CLASSES.descend);
-    }
-    else {
+    } else {
       target.classList.add(STATISTIC_CELL_SORT_CLASSES.descend);
     }
   }
@@ -41,7 +45,10 @@ export default class StatisticTableHead extends BaseComponent {
     this.statisticTableRow.cells.forEach((cell) => {
       if (cell.el === target) return;
 
-      cell.el.classList.remove(STATISTIC_CELL_SORT_CLASSES.descend, STATISTIC_CELL_SORT_CLASSES.ascend);
+      cell.el.classList.remove(
+        STATISTIC_CELL_SORT_CLASSES.descend,
+        STATISTIC_CELL_SORT_CLASSES.ascend,
+      );
     });
   }
 }

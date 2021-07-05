@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .category-page .main {
   max-width: 1430px;
@@ -18,7 +18,7 @@
   text-transform: uppercase;
   font-size: 26px;
   color: #212529;
-  transition: margin-bottom .5s;
+  transition: margin-bottom 0.5s;
 
   .game-mode-train & {
     @include at($max, $tablet - 1) {
