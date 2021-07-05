@@ -32,11 +32,13 @@ export default class GameEndSplashScreen extends BaseComponent {
   }
 
   show(): void {
+    document.body.classList.add('game-end-splash-screen-show');
     this.el.classList.remove('game-end-splash-screen_hidden');
     this.audioEl.play();
   }
 
   hide(): void {
+    document.body.classList.remove('game-end-splash-screen-show');
     this.el.classList.add('game-end-splash-screen_hidden');
   }
 }
