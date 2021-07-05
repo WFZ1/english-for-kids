@@ -156,8 +156,6 @@ export default class CardsField extends BaseComponent {
   }
 
   addCards(wordCards: IWordCardProps[], categoryName: string): void {
-    this.clear();
-
     wordCards.forEach((cardProps) => this.addCard(cardProps, categoryName));
   }
 

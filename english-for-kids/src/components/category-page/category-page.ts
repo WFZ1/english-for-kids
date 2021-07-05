@@ -35,6 +35,8 @@ export default class CategoryPage {
   }
 
   render(title: string): void {
+    this.cardsField.clear();
+
     this.titleEl.textContent = title;
 
     const state = store.getState();
@@ -67,8 +69,6 @@ export default class CategoryPage {
     const { difficultWords } = state;
 
     if (!difficultWords.length) return;
-
-    this.cardsField.clear();
 
     difficultWords.forEach((obj) => {
       const objCategory = handleizeString(obj.category);
@@ -106,6 +106,8 @@ export default class CategoryPage {
 
   private addHandlerStartGame(): void {
     this.btnStartGame.attachHandlerStartGame(() => {
+      if(!this.cardsField.cards.length) return;
+
       this.startGame();
       this.playAudioCurrentCard();
     });
