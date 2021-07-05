@@ -106,7 +106,7 @@ export default class CategoryPage {
 
   private addHandlerStartGame(): void {
     this.btnStartGame.attachHandlerStartGame(() => {
-      if(!this.cardsField.cards.length) return;
+      if (!this.cardsField.cards.length) return;
 
       this.startGame();
       this.playAudioCurrentCard();
