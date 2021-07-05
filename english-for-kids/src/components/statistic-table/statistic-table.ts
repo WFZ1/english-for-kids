@@ -52,7 +52,8 @@ export default class StatisticTable extends BaseComponent {
     }
   }
 
-  updateBody(): void {
+  update(): void {
     this.statisticTableBody.render();
+    this.statisticTableHead.hideSort();
   }
 }

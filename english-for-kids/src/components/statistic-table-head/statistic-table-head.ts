@@ -41,7 +41,7 @@ export default class StatisticTableHead extends BaseComponent {
     }
   }
 
-  private hideSort(target: HTMLElement): void {
+  hideSort(target: HTMLElement | undefined = undefined): void {
     this.statisticTableRow.cells.forEach((cell) => {
       if (cell.el === target) return;
 

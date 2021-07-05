@@ -55,14 +55,14 @@ export default class StatisticPage {
   }
 
   render(): void {
-    this.statisticTable.updateBody();
+    this.statisticTable.update();
 
     this.rootEl.append(this.btnRepeat.el, this.btnReset.el, this.containerEl);
   }
 
   private reset(): void {
     localStorage.clear();
-    this.statisticTable.updateBody();
+    this.statisticTable.update();
   }
 
   private handleDifficultWords(): void {
