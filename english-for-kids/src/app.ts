@@ -44,8 +44,7 @@ export default class App {
       .add(/category\/(.*)/, (props: RegExpMatchArray) => {
         this.clearMainEl();
 
-        document.body.classList.remove('home-page');
-        document.body.classList.remove('statistic-page');
+        App.resetPageName();
         document.body.classList.add('category-page');
 
         App.resetStateNavItems();
@@ -56,8 +55,8 @@ export default class App {
       })
       .add('statistic', () => {
         this.clearMainEl();
-        document.body.classList.remove('home-page');
-        document.body.classList.remove('category-page');
+
+        App.resetPageName();
         document.body.classList.add('statistic-page');
 
         App.resetStateNavItems();
@@ -69,8 +68,7 @@ export default class App {
       .add('', () => {
         this.clearMainEl();
 
-        document.body.classList.remove('category-page');
-        document.body.classList.remove('statistic-page');
+        App.resetPageName();
         document.body.classList.add('home-page');
 
         App.resetStateNavItems();
@@ -83,6 +81,14 @@ export default class App {
 
   private clearMainEl(): void {
     this.mainEl.innerHTML = '';
+  }
+
+  private static resetPageName(): void {
+    document.body.classList.forEach((className) => {
+      if (/.+-page$/.test(className)) {
+        document.body.classList.remove(className);
+      }
+    });
   }
 
   private static resetStateNavItems(): void {
