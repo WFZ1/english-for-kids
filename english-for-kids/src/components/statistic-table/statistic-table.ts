@@ -8,7 +8,7 @@ import { STATISTIC_CELL_SORT_CLASSES } from "../../constants";
 export default class StatisticTable extends BaseComponent {
   private readonly statisticTableHead: StatisticTableHead;
 
-  private readonly statisticTableBody: StatisticTableBody;
+  readonly statisticTableBody: StatisticTableBody;
 
   constructor() {
     super('table', ['statistic-table']);

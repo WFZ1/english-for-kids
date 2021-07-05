@@ -1,4 +1,4 @@
-import { APP_PAGE_CHANGE, GAME_CARD_CORRECT, GAME_CARD_ERROR, GAME_END, GAME_MODE_CHANGE, GAME_START, INITIAL_STATE } from "../../constants";
+import { APP_DIFFICULT_CATEGORY, APP_PAGE_CHANGE, GAME_CARD_CORRECT, GAME_CARD_ERROR, GAME_END, GAME_MODE_CHANGE, GAME_START, INITIAL_STATE } from "../../constants";
 import IReduxReducerAction from "../../types/redux-reducer-action.type";
 import IReduxReducerInitialState from "../../types/redux-reducer-initial-state.type";
 
@@ -66,7 +66,14 @@ function reducer(state: IReduxReducerInitialState = INITIAL_STATE, action: IRedu
         isCardError: true,
         countErrors: state.countErrors + 1
       };
+    case APP_DIFFICULT_CATEGORY: {
+      const difficultWords = action.difficultWords?.slice() || [];
 
+      return {
+        ...state,
+        difficultWords
+      }
+    }
     default:
       return state;
   }

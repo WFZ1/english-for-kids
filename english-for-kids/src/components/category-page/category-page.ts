@@ -5,8 +5,10 @@ import BtnStartGame from '../btn-start-game/btn-start-game';
 import createElement from '../../shared/create-element';
 import store from '../base/store';
 import delay from '../../shared/delay';
+import handleizeString from '../../shared/handleize-string';
 import IWordCardProps from '../../types/word-card-props.type';
-import { CATEGORY_CARDS, GAME_START, WORD_CARDS } from '../../constants';
+import IReduxReducerInitialState from '../../types/redux-reducer-initial-state.type';
+import { CATEGORY_CARDS, GAME_START, STATISTIC_PAGE_URL, WORD_CARDS } from '../../constants';
 
 export default class CategoryPage {
   private readonly cardsField: CardsField;
@@ -30,10 +32,16 @@ export default class CategoryPage {
   render(title: string): void {
     this.titleEl.textContent = title;
 
-    const categoryName = store.getState().category;
+    const state = store.getState();
+    const { category } = state;
 
-    const cardsData = CategoryPage.getCategoryCardsData(categoryName);
-    this.cardsField.addCards(cardsData, categoryName);
+    if (category !== STATISTIC_PAGE_URL) {
+      const cardsData = CategoryPage.getCategoryCardsData(category);
+      this.cardsField.addCards(cardsData, category);
+    }
+    else {
+      this.handleDifficultWordsCategory(state);
+    }
 
     this.rootEl.append(this.titleEl, this.gameScore.el, this.cardsField.el, this.btnStartGame.el);
   }
@@ -42,6 +50,24 @@ export default class CategoryPage {
     const categoryIndex = CATEGORY_CARDS.findIndex((card) => card.handle === categoryName);
     const data = WORD_CARDS[categoryIndex];
     return data;
+  }
+
+  handleDifficultWordsCategory(state: IReduxReducerInitialState): void {
+    const { difficultWords } = state;
+
+    if (!difficultWords.length) return;
+
+    this.cardsField.clear();
+
+    difficultWords.forEach((obj) => {
+      const objCategory = handleizeString(obj.category);
+      const cardsData = CategoryPage.getCategoryCardsData(objCategory);
+      const word = cardsData.find((card) => card.word === obj.word);
+
+      if (word) {
+        this.cardsField.addCard(word, objCategory);
+      }
+    });
   }
 
   private subscribeToChangeAppState(): void {

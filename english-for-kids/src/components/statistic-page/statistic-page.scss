@@ -12,6 +12,52 @@
   }
 }
 
+.statistic-page__btn {
+  min-width: 189px;
+  min-height: 51px;
+  margin-bottom: 20px;
+  padding: 6px 25px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: background-color .3s, color .3s;
+
+  @include at ($min, $phone-xl) {
+    margin-bottom: 30px;
+  }
+}
+
+.statistic-page__repeat {
+  color: #fff;
+  background-color: #00bf82;
+  box-shadow: 3px 3px 10px 0 rgb(0 191 130 / 31%);
+
+  @include at ($min, $phone-xl) {
+    margin-right: 20px;
+  }
+
+  &:hover {
+    background-color: #00d390;
+  }
+}
+
+.statistic-page__reset {
+  color: #05112e;
+  background-color: #fff;
+  box-shadow: 3px 3px 10px 0 rgb(6 46 143 / 31%);
+
+  @include at ($max, $phone-xl) {
+    margin-bottom: 30px;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #b5b5b5;
+  }
+}
+
 .statistic-page__container {
   overflow-x: auto;
 }

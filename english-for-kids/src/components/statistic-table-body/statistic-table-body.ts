@@ -9,7 +9,7 @@ import IStatisticTableRowValues from "../../types/statistic-table-row-values.typ
 import { CATEGORY_CARDS, PERCENT_100, WORD_CARDS } from "../../constants";
 
 export default class StatisticTableBody extends BaseComponent {
-  private rows: StatisticTableRow[] = [];
+  rows: StatisticTableRow[] = [];
 
   constructor() {
     super('tbody', ['statistic-table-body']);

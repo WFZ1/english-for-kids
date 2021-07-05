@@ -43,7 +43,7 @@ export default class CardsField extends BaseComponent {
     if (card) {
       card.trainCard();
 
-      CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'trained');
+      CardsField.updateGameStatisticInStorage(card, 'trained');
     }
     else {
       card = this.getCard(e, '.word-card__front');
@@ -51,7 +51,7 @@ export default class CardsField extends BaseComponent {
       if (card && !card.isFlipped) {
         card.playAudio();
 
-        CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'trained');
+        CardsField.updateGameStatisticInStorage(card, 'trained');
       }
     }
   }
@@ -78,7 +78,7 @@ export default class CardsField extends BaseComponent {
 
     store.dispatch({ type: GAME_CARD_CORRECT });
 
-    CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'correct');
+    CardsField.updateGameStatisticInStorage(card, 'correct');
   }
 
   private execActionsWrongCard(card: WordCard): void {
@@ -86,7 +86,7 @@ export default class CardsField extends BaseComponent {
 
     store.dispatch({ type: GAME_CARD_ERROR });
 
-    CardsField.updateGameStatisticInStorage(card.wordEnEl.textContent, 'wrong');
+    CardsField.updateGameStatisticInStorage(card, 'wrong');
   }
 
   private getCard(e: Event, selector: string): undefined | WordCard {
@@ -102,10 +102,12 @@ export default class CardsField extends BaseComponent {
     return undefined;
   }
 
-  private static updateGameStatisticInStorage(word: string | undefined | null, statisticType: string): void {
-    if (!word) return;
+  private static updateGameStatisticInStorage(card: WordCard, statisticType: string): void {
+    const { category } = card.frontEl.dataset;
+    const word = card.wordEnEl.textContent;
 
-    const { category } = store.getState();
+    if (!word || !category) return;
+
     const key = `${ category }__${ word }`;
     const data = getGameStatisticData(category, word);
     const newData = CardsField.updateStatisticData(data, statisticType);
@@ -132,7 +134,7 @@ export default class CardsField extends BaseComponent {
     return newData;
   }
 
-  private clear(): void {
+  clear(): void {
     this.cards = [];
     this.el.innerHTML = '';
   }
@@ -140,14 +142,16 @@ export default class CardsField extends BaseComponent {
   addCards(wordCards: IWordCardProps[], categoryName: string): void {
     this.clear();
 
-    wordCards.forEach((cardProps) => {
-      const newCardProps = { ...cardProps };
-      newCardProps.image = `assets/images/category-cards/${ categoryName }/${ cardProps.image }`
+    wordCards.forEach((cardProps) => this.addCard(cardProps, categoryName));
+  }
 
-      const wordCard = new WordCard(newCardProps, categoryName);
+  addCard(cardProps: IWordCardProps, categoryName: string): void {
+    const newCardProps = { ...cardProps };
+    newCardProps.image = `assets/images/category-cards/${ categoryName }/${ cardProps.image }`
 
-      this.cards.push(wordCard);
-      this.el.append(wordCard.el);
-    });
+    const wordCard = new WordCard(newCardProps, categoryName);
+
+    this.cards.push(wordCard);
+    this.el.append(wordCard.el);
   }
 }

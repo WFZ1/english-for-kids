@@ -98,7 +98,7 @@ export default class App {
       return link.pathname === `/${ url }`;
     });
 
-    App.highlightNavItem(navItemIndex);
+    if (navItemIndex >= 0) App.highlightNavItem(navItemIndex);
   }
 
   private static highlightNavItem(index: number): void {

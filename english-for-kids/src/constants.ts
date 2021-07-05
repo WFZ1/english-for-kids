@@ -10,6 +10,8 @@ export const GAME_CARD_CORRECT = 'game/cardCorrect';
 
 export const GAME_CARD_ERROR = 'game/cardError';
 
+export const APP_DIFFICULT_CATEGORY = 'app/difficultCategory';
+
 export const INITIAL_STATE = {
   currentPage: '',
   gameMode: 'train',
@@ -21,7 +23,8 @@ export const INITIAL_STATE = {
   randomCards: [],
   isCardCorrect: false,
   isCardError: false,
-  countErrors: 0
+  countErrors: 0,
+  difficultWords: []
 };
 
 export const TRAIN = 'train';
@@ -54,6 +57,16 @@ export const CARD_FLIP_CLASS = 'word-card_flipped';
 export const CARD_FLIP_DURATION = 250;
 
 export const BTN_START_GAME_TEXT = 'Start game';
+
+export const BTN_REPEAT_DIFFICULT_WORDS_TEXT = 'Repeat difficult words';
+
+export const BTN_RESET_STATISTIC_TEXT = 'Reset';
+
+export const MAX_DIFFICULT_WORDS = 8;
+
+export const DIFFICULT_WORDS_ACCURACY_TEXT = 'Words with < 45% accuracy';
+
+export const DIFFICULT_WORDS_ACCURACY_LIMIT = 45;
 
 export const STATISTIC_CELL_SORT_CLASSES = {
   descend: 'statistic-table-cell_sort_descend',
@@ -572,3 +585,5 @@ export const EMPTY_STATISTICAL_DATA = {
   correct: 0,
   wrong: 0
 }
+
+export const STATISTIC_PAGE_URL = 'repeat-difficult-words';
