@@ -587,3 +587,31 @@ export const EMPTY_STATISTICAL_DATA = {
 };
 
 export const STATISTIC_PAGE_URL = 'repeat-difficult-words';
+
+export const LOGIN_POPUP_SHOW_CLASS = 'login-popup-show';
+
+export const LOGIN_FORM_LOGIN_FIELD = {
+  type: 'text',
+  name: 'login',
+  placeholder: 'login',
+  maxlength: '30'
+};
+
+export const LOGIN_FORM_PASSWORD_FIELD = {
+  type: 'password',
+  name: 'password',
+  placeholder: 'password',
+  maxlength: '30'
+};
+
+export const LOGIN_BTN_TEXT = 'Login';
+
+export const LOGIN_FORM_CANCEL_BTN = {
+  text: 'Cancel',
+  type: 'reset'
+};
+
+export const LOGIN_FORM_SUBMIT_BTN = {
+  text: 'Login',
+  type: 'submit'
+};

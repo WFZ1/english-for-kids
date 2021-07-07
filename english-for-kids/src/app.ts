@@ -3,6 +3,7 @@ import store from './components/base/store';
 import header from './components/header/header';
 import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
+import LoginPopup from './components/login-popup/login-popup';
 import categoriesField from './components/categories-field/categories-field';
 import CategoryPage from './components/category-page/category-page';
 import StatisticPage from './components/statistic-page/statistic-page';
@@ -21,6 +22,8 @@ import {
 export default class App {
   private readonly mainEl: HTMLElement;
 
+  private readonly loginPopup: LoginPopup;
+
   private readonly categoryPage: CategoryPage;
 
   private readonly statisticPage: StatisticPage;
@@ -31,6 +34,8 @@ export default class App {
 
   constructor(private readonly rootEl: HTMLElement) {
     this.mainEl = createElement('main', ['main', 'page__main']);
+
+    this.loginPopup = new LoginPopup();
 
     this.categoryPage = new CategoryPage(this.mainEl);
     this.statisticPage = new StatisticPage(this.mainEl);
@@ -48,7 +53,7 @@ export default class App {
   }
 
   private render(): void {
-    this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el);
+    this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el, this.loginPopup.el);
     this.initStateApp();
   }
 

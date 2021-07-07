@@ -1,0 +1,65 @@
+@import "../../breakpoints.scss";
+
+.login-popup-show .login-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.login-popup__container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px 15px;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 3px 4px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+
+  @include at ($min, $phone + 1) {
+    max-width: 500px;
+    padding: 30px;
+  }
+
+  @include at ($max, $phone) {
+    margin: 10px;
+  }
+}
+
+.login-popup__title {
+  margin: 0 0 30px;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.0075em;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.login-form__field {
+  max-width: 350px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #000;
+}
+
+.login-form__btn {
+  margin-top: 10px;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px rgb(0 0 0 / 20%), 0px 2px 2px rgb(0 0 0 / 12%), 0px 1px 2px rgb(0 0 0 / 14%);
+  border: 0;
+
+  @include at ($min, $phone + 1) {
+    margin-top: 30px;
+  }
+}
+
+.login-form__cancel {
+  background-color: #fc6262;
+  margin-right: 20px;
+}
+
+.login-form__submit {
+  background-color: #00bf82;
+}

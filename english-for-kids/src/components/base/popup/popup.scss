@@ -1,0 +1,23 @@
+.popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  background-color: rgba(196, 196, 196, 0.6);
+  transition-duration: 0.5s;
+  transition-property: opacity, visibility;
+}
+
+.popup_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.popup__container {
+  overflow: hidden;
+}
