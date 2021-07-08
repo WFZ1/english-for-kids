@@ -126,7 +126,7 @@ export default class App {
     const navItemIndex = navDrawer.navItems.findIndex((item) => {
       const link = item.children[0] as HTMLAnchorElement;
 
-      return link.pathname === `/${url}`;
+      return link.pathname.indexOf(url) + 1;
     });
 
     if (navItemIndex >= 0) App.highlightNavItem(navItemIndex);

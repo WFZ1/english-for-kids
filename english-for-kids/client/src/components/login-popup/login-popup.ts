@@ -1,5 +1,4 @@
 import './login-popup.scss';
-import header from '../header/header';
 import Popup from '../base/popup/popup';
 import LoginForm from '../login-form/login-form';
 import createElement from '../../shared/create-element';
