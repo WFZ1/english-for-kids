@@ -590,10 +590,10 @@ export const STATISTIC_PAGE_URL = 'repeat-difficult-words';
 
 export const LOGIN_POPUP_SHOW_CLASS = 'login-popup-show';
 
-export const LOGIN_FORM_LOGIN_FIELD = {
+export const LOGIN_FORM_USERNAME_FIELD = {
   type: 'text',
-  name: 'login',
-  placeholder: 'login',
+  name: 'username',
+  placeholder: 'username',
   maxlength: '30'
 };
 
@@ -615,3 +615,5 @@ export const LOGIN_FORM_SUBMIT_BTN = {
   text: 'Login',
   type: 'submit'
 };
+
+export const AUTHORIZATION_URL = 'http://localhost:7000/login';
