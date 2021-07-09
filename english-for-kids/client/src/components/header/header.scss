@@ -1,6 +1,10 @@
 .header {
   padding: 0 20px;
   background-color: #fff;
+
+  .admin-auth & {
+    background-color: #00BF82;
+  }
 }
 
 .header__container {
@@ -10,4 +14,8 @@
   padding: 40px 0;
   justify-content: space-between;
   align-items: center;
+
+  .admin-auth & {
+    padding: 20px 0;
+  }
 }

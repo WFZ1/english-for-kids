@@ -15,7 +15,7 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
     jwt.verify(token, ACCESS_TOKEN_SECRET, (err) => {
       if (err) return res.sendStatus(STATUS_CODES.forbidden);
 
-      next();
+      return next();
     });
   }
   else {

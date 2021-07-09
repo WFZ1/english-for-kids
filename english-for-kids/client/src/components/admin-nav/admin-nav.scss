@@ -1,0 +1,51 @@
+@import "../../breakpoints.scss";
+
+.admin-nav {
+  display: flex;
+  flex: 1;
+  margin: 0 -10px;
+  justify-content: space-between;
+}
+
+.admin-nav__container {
+  display: flex;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include at($min, $phone) {
+    margin-right: 30px;
+  }
+}
+
+.admin-nav__item {
+  margin-right: 5%;
+
+  @include at($min, $phone) {
+    margin-right: 12%;
+  }
+}
+
+.admin-nav__link,
+.admin-nav__logout {
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+
+  @include at($min, $phone) {
+    font-size: 22px;
+  }
+}
+
+.admin-nav__link {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.admin-nav__logout {
+  padding: 10px;
+  background-color: transparent;
+  border: 0;
+}

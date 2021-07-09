@@ -73,8 +73,8 @@ export default class LoginForm extends BaseComponent {
     const formData = new FormData(this.el as HTMLFormElement);
     const data = [...formData.entries()];
     const serializeData = data
-        .map(entry => `${ encodeURIComponent(entry[0]) }=${ encodeURIComponent(entry[1] as string) }`)
-        .join('&');
+      .map(entry => `${ encodeURIComponent(entry[0]) }=${ encodeURIComponent(entry[1] as string) }`)
+      .join('&');
 
     const response = await fetch(AUTHORIZATION_URL, {
       method: 'POST',

@@ -570,6 +570,17 @@ NAV_ITEMS.push({
   url: 'statistic',
 });
 
+export const ADMIN_NAV_ITEMS = [
+  {
+    text: 'Categories',
+    url: 'admin/categories'
+  },
+  {
+    text: 'Words',
+    url: 'admin/words'
+  }
+];
+
 export const STATISTIC_TABLE_TITLES = [
   'Category',
   'Word',
@@ -605,6 +616,7 @@ export const LOGIN_FORM_PASSWORD_FIELD = {
 };
 
 export const LOGIN_BTN_TEXT = 'Login';
+export const LOGOUT_BTN_TEXT = 'Log out';
 
 export const LOGIN_FORM_CANCEL_BTN = {
   text: 'Cancel',
