@@ -4,8 +4,9 @@ import Link from '../base/link/link';
 import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
+import store from '../base/store';
 import INavItem from '../../types/nav-item.type';
-import { ADMIN_NAV_ITEMS, LOGOUT_BTN_TEXT } from '../../constants';
+import { ADMIN_NAV_ITEMS, APP_AUTHORIZATION, LOGOUT_BTN_TEXT } from '../../constants';
 
 class AdminNav extends BaseComponent {
   private readonly containerEl: HTMLElement;
@@ -30,7 +31,7 @@ class AdminNav extends BaseComponent {
   private render(): void {
     ADMIN_NAV_ITEMS.forEach((navItem) => this.addNavItem(navItem));
 
-    // this.logout.attachHandler(this.handleLogout.bind(this));
+    this.logout.attachHandler(AdminNav.handleLogout.bind(this));
 
     this.el.append(this.containerEl, this.logout.el);
   }
@@ -50,8 +51,11 @@ class AdminNav extends BaseComponent {
     this.navItems.push(itemEl);
   }
 
-  // private handleLogout(): void {
-  // }
+  private static handleLogout(): void {
+    localStorage.removeItem('authToken');
+    store.dispatch({ type: APP_AUTHORIZATION, isAdmin: false });
+    router.navigate('/');
+  }
 }
 
 const adminNav = new AdminNav();

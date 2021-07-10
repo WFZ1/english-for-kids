@@ -20,15 +20,17 @@ class Header extends BaseComponent {
   }
 
   private render(): void {
-    const authToken = localStorage.getItem('authToken');
-
-    if (!authToken) {
-      this.renderUserPart();
-    } else {
-      this.renderAdminPart();
-    }
-
     this.el.append(this.containerEl);
+  }
+
+  changeView(isAdmin = false) {
+    this.containerEl.innerHTML = '';
+
+    if (isAdmin) {
+      this.renderAdminPart();
+    } else {
+      this.renderUserPart();
+    }
   }
 
   private renderUserPart(): void {

@@ -1,6 +1,8 @@
 import ICategoryWord from './category-word.type';
 
 export default interface IReduxReducerInitialState {
+  isAdmin: boolean;
+  isLogInOutDone: boolean;
   currentPage: string;
   category: string;
   isPageChange: boolean;

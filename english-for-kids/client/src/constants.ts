@@ -1,3 +1,5 @@
+export const APP_AUTHORIZATION = 'app/authorization';
+
 export const APP_PAGE_CHANGE = 'app/pageChange';
 
 export const GAME_MODE_CHANGE = 'game/modeChange';
@@ -13,6 +15,8 @@ export const GAME_CARD_ERROR = 'game/cardError';
 export const APP_DIFFICULT_CATEGORY = 'app/difficultCategory';
 
 export const INITIAL_STATE = {
+  isAdmin: false,
+  isLogInOutDone: false,
   currentPage: '',
   gameMode: 'train',
   category: '',

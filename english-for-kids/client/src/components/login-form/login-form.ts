@@ -5,7 +5,8 @@ import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import type LoginPopup from '../login-popup/login-popup';
-import { AUTHORIZATION_URL, LOGIN_FORM_CANCEL_BTN, LOGIN_FORM_USERNAME_FIELD, LOGIN_FORM_PASSWORD_FIELD, LOGIN_FORM_SUBMIT_BTN, LOGIN_POPUP_SHOW_CLASS } from '../../constants';
+import { AUTHORIZATION_URL, LOGIN_FORM_CANCEL_BTN, LOGIN_FORM_USERNAME_FIELD, LOGIN_FORM_PASSWORD_FIELD, LOGIN_FORM_SUBMIT_BTN, LOGIN_POPUP_SHOW_CLASS, APP_AUTHORIZATION } from '../../constants';
+import store from '../base/store';
 
 export default class LoginForm extends BaseComponent {
   private readonly username: Field;
@@ -89,9 +90,11 @@ export default class LoginForm extends BaseComponent {
     if ('accessToken' in respData) {
       this.errorEl.classList.add('login-form__error_hidden');
       document.body.classList.remove(LOGIN_POPUP_SHOW_CLASS);
-      router.navigate('/');
+      router.navigate('admin/categories');
       localStorage.setItem('authToken', respData.accessToken);
-    } else {
+      store.dispatch({ type: APP_AUTHORIZATION, isAdmin: true });
+    }
+    else {
       this.errorEl.textContent = respData.error;
       this.errorEl.classList.remove('login-form__error_hidden');
     }

@@ -17,6 +17,7 @@ import {
   TRAIN,
   GAME_END_SPLASH_SCREEN,
   GAME_END,
+  APP_AUTHORIZATION,
 } from './constants';
 
 export default class App {
@@ -49,18 +50,38 @@ export default class App {
       GAME_END_SPLASH_SCREEN.fail,
     );
 
+    App.checkAdminAuth();
+    this.initStateApp();
     this.render();
   }
 
   private render(): void {
-    this.rootEl.append(header.el, this.mainEl, footer.el, navDrawer.el, this.loginPopup.el);
-    this.initStateApp();
+    this.rootEl.append(header.el, this.mainEl, footer.el);
+  }
+
+  private renderUserPart(): void {
+    this.rootEl.append(navDrawer.el, this.loginPopup.el);
+  }
+
+  private renderAdminPart(): void {
+    navDrawer.el.remove();
+    this.loginPopup.el.remove();
+  }
+
+  private static checkAdminAuth(): void {
+    const authToken = localStorage.getItem('authToken');
+
+    if (authToken) {
+      store.dispatch({ type: APP_AUTHORIZATION, isAdmin: true });
+    }
   }
 
   addRoutes(): void {
     router
       .add(/category\/(.*)/, (props: RegExpMatchArray) => {
         this.clearMainEl();
+
+        if (App.redirectAdmin()) return;
 
         App.resetPageName();
         document.body.classList.add('category-page');
@@ -78,6 +99,8 @@ export default class App {
       .add('statistic', () => {
         this.clearMainEl();
 
+        if (App.redirectAdmin()) return;
+
         App.resetPageName();
         document.body.classList.add('statistic-page');
 
@@ -90,8 +113,18 @@ export default class App {
         });
         this.statisticPage.render();
       })
+      .add('admin/categories', () => {
+        this.clearMainEl();
+
+        if (App.redirectUser()) return;
+
+        App.resetPageName();
+        document.body.classList.add('admin-categories-page');
+      })
       .add('', () => {
         this.clearMainEl();
+
+        if (App.redirectAdmin()) return;
 
         App.resetPageName();
         document.body.classList.add('home-page');
@@ -102,6 +135,24 @@ export default class App {
         store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
         this.mainEl.append(categoriesField.el);
       });
+  }
+
+  private static redirectAdmin(): boolean {
+    if (store.getState().isAdmin) {
+      router.navigate('admin/categories');
+      return true;
+    }
+
+    return false;
+  }
+
+  private static redirectUser(): boolean {
+    if (!store.getState().isAdmin) {
+      router.navigate('/');
+      return true;
+    }
+
+    return false;
   }
 
   private clearMainEl(): void {
@@ -140,10 +191,17 @@ export default class App {
   private initStateApp(): void {
     this.changeStateApp();
     store.subscribe(this.changeStateApp.bind(this));
+
+    this.logInOutDone();
   }
 
   private changeStateApp(): void {
     const state = store.getState();
+
+    if (state.isLogInOutDone) {
+      this.logInOutDone();
+      return;
+    }
 
     if (state.gameMode === TRAIN) {
       document.body.classList.remove('game-mode-play');
@@ -156,6 +214,20 @@ export default class App {
         if (state.countErrors) this.showMistakesGameEnd();
         else this.showCongratulationsGameEnd();
       }
+    }
+  }
+
+  private logInOutDone(): void {
+    if (store.getState().isAdmin) {
+      header.changeView(true);
+      this.renderAdminPart();
+
+      document.body.classList.remove('game-mode-play');
+      document.body.classList.remove('game-mode-train');
+    }
+    else {
+      header.changeView();
+      this.renderUserPart();
     }
   }
 

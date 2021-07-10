@@ -1,4 +1,5 @@
 import {
+  APP_AUTHORIZATION,
   APP_DIFFICULT_CATEGORY,
   APP_PAGE_CHANGE,
   GAME_CARD_CORRECT,
@@ -16,15 +17,22 @@ function reducer(
   action: IReduxReducerAction,
 ): IReduxReducerInitialState {
   switch (action.type) {
+    case APP_AUTHORIZATION:
+      return {
+        ...state,
+        isAdmin: action.isAdmin || false,
+        isLogInOutDone: true
+      }
     case APP_PAGE_CHANGE: {
       return {
         ...state,
+        isLogInOutDone: false,
         currentPage: action.currentPage || '',
         category: action.category || '',
         isPageChange: true,
         isGameStart: false,
         isCardCorrect: false,
-        isCardError: false,
+        isCardError: false
       };
     }
     case GAME_MODE_CHANGE:
