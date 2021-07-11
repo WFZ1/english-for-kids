@@ -1,12 +1,13 @@
 import './statistic-table-body.scss';
 import BaseComponent from '../base/base-component';
 import StatisticTableRow from '../statistic-table-row/statistic-table-row';
+import getData from '../../shared/get-data';
 import getGameStatisticData from '../../shared/get-game-statistic-data';
 import IGameStatistic from '../../types/game-statistic.type';
 import ICategoryCardProps from '../../types/category-card-props.type';
 import IWordCardProps from '../../types/word-card-props.type';
 import IStatisticTableRowValues from '../../types/statistic-table-row-values.type';
-import { CATEGORY_CARDS, PERCENT_100, WORD_CARDS } from '../../constants';
+import { PERCENT_100, SERVER_API_CATEGORIES_URL, SERVER_API_WORDS_URL } from '../../constants';
 
 export default class StatisticTableBody extends BaseComponent {
   rows: StatisticTableRow[] = [];
@@ -15,11 +16,14 @@ export default class StatisticTableBody extends BaseComponent {
     super('tbody', ['statistic-table-body']);
   }
 
-  render(): void {
+  async render(): Promise<void> {
     this.clear();
 
-    CATEGORY_CARDS.forEach((category, index) => {
-      WORD_CARDS[index].forEach((card) => {
+    const categories = await getData(SERVER_API_CATEGORIES_URL);
+    const words = await getData(SERVER_API_WORDS_URL);
+
+    categories.forEach((category: ICategoryCardProps, index) => {
+      (words[index] as IWordCardProps[]).forEach((card) => {
         const data = getGameStatisticData(category.handle, card.word);
 
         const percentCorrect =

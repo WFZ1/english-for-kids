@@ -4,9 +4,10 @@ import header from './components/header/header';
 import footer from './components/footer/footer';
 import navDrawer from './components/nav-drawer/nav-drawer';
 import LoginPopup from './components/login-popup/login-popup';
-import categoriesField from './components/categories-field/categories-field';
+import HomePage from './components/home-page/home-page';
 import CategoryPage from './components/category-page/category-page';
 import StatisticPage from './components/statistic-page/statistic-page';
+import AdminHomePage from './components/admin-home-page/admin-home-page';
 import GameEndSplashScreen from './components/game-end-splash-screen/game-end-splash-screen';
 import createElement from './shared/create-element';
 import delay from './shared/delay';
@@ -25,9 +26,13 @@ export default class App {
 
   private readonly loginPopup: LoginPopup;
 
+  private readonly homePage: HomePage;
+
   private readonly categoryPage: CategoryPage;
 
   private readonly statisticPage: StatisticPage;
+
+  private readonly adminHomePage: AdminHomePage;
 
   private readonly gameEndSplashScreenSuccess: GameEndSplashScreen;
 
@@ -38,8 +43,10 @@ export default class App {
 
     this.loginPopup = new LoginPopup();
 
+    this.homePage = new HomePage(this.mainEl);
     this.categoryPage = new CategoryPage(this.mainEl);
     this.statisticPage = new StatisticPage(this.mainEl);
+    this.adminHomePage = new AdminHomePage(this.mainEl);
 
     this.gameEndSplashScreenSuccess = new GameEndSplashScreen(
       ['game-end-splash-screen-success'],
@@ -113,13 +120,15 @@ export default class App {
         });
         this.statisticPage.render();
       })
-      .add('admin/categories', () => {
+      .add('admin', () => {
         this.clearMainEl();
 
         if (App.redirectUser()) return;
 
         App.resetPageName();
-        document.body.classList.add('admin-categories-page');
+        document.body.classList.add('admin-home-page');
+
+        this.adminHomePage.render();
       })
       .add('', () => {
         this.clearMainEl();
@@ -133,13 +142,13 @@ export default class App {
         App.highlightNavItem(0);
 
         store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
-        this.mainEl.append(categoriesField.el);
+        this.homePage.render();
       });
   }
 
   private static redirectAdmin(): boolean {
     if (store.getState().isAdmin) {
-      router.navigate('admin/categories');
+      router.navigate('admin');
       return true;
     }
 

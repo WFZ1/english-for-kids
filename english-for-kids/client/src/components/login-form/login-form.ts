@@ -5,7 +5,7 @@ import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import type LoginPopup from '../login-popup/login-popup';
-import { AUTHORIZATION_URL, LOGIN_FORM_CANCEL_BTN, LOGIN_FORM_USERNAME_FIELD, LOGIN_FORM_PASSWORD_FIELD, LOGIN_FORM_SUBMIT_BTN, LOGIN_POPUP_SHOW_CLASS, APP_AUTHORIZATION } from '../../constants';
+import { SERVER_URL, LOGIN_FORM_CANCEL_BTN, LOGIN_FORM_USERNAME_FIELD, LOGIN_FORM_PASSWORD_FIELD, LOGIN_FORM_SUBMIT_BTN, LOGIN_POPUP_SHOW_CLASS, APP_AUTHORIZATION } from '../../constants';
 import store from '../base/store';
 
 export default class LoginForm extends BaseComponent {
@@ -49,7 +49,7 @@ export default class LoginForm extends BaseComponent {
   }
 
   private render(): void {
-    this.el.setAttribute('action', AUTHORIZATION_URL);
+    this.el.setAttribute('action', `${ SERVER_URL }/login`);
     this.el.setAttribute('method', 'post');
 
     this.cancel.attachHandler(this.handleCancel.bind(this));
@@ -77,7 +77,7 @@ export default class LoginForm extends BaseComponent {
       .map(entry => `${ encodeURIComponent(entry[0]) }=${ encodeURIComponent(entry[1] as string) }`)
       .join('&');
 
-    const response = await fetch(AUTHORIZATION_URL, {
+    const response = await fetch(`${ SERVER_URL }/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

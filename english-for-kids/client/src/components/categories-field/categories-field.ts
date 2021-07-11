@@ -1,28 +1,23 @@
 import './categories-field.scss';
 import BaseComponent from '../base/base-component';
-import CategoryCard from '../category-card/category-card';
-import { CATEGORY_CARDS } from '../../constants';
+import type CategoryCard from '../category-card/category-card';
+import type AdminCategoryCard from '../admin-category-card/admin-category-card';
+import type AdminNewCategoryCard from '../admin-new-category-card/admin-new-category-card';
 
-class CategoriesField extends BaseComponent {
-  categories: CategoryCard[] = [];
+export default class CategoriesField extends BaseComponent {
+  cards: CategoryCard[] | Array<AdminCategoryCard | AdminNewCategoryCard> = [];
 
-  constructor() {
-    super('div', ['categories-field']);
-
-    this.addCategories();
+  constructor(classes: string[] = []) {
+    super('div', classes.concat(['categories-field']));
   }
 
-  private addCategories(): void {
-    CATEGORY_CARDS.forEach((categoryProps) => {
-      const newCategoryProps = { ...categoryProps };
-      newCategoryProps.image = `./assets/images/category-cards/${categoryProps.handle}/${categoryProps.image}`;
-      const category = new CategoryCard(newCategoryProps);
+  clear(): void {
+    this.cards = [];
+    this.el.innerHTML = '';
+  }
 
-      this.categories.push(category);
-      this.el.append(category.el);
-    });
+  addCards(cards: CategoryCard[] | Array<AdminCategoryCard | AdminNewCategoryCard>): void {
+    this.cards = cards;
+    this.cards.forEach((card) => this.el.append(card.el));
   }
 }
-
-const categoriesField = new CategoriesField();
-export default categoriesField;

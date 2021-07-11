@@ -5,7 +5,8 @@ import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import INavItem from '../../types/nav-item.type';
-import { HAMB_MENU_OPEN_CLASS, LOGIN_BTN_TEXT, LOGIN_POPUP_SHOW_CLASS, NAV_ITEMS } from '../../constants';
+import { HAMB_MENU_OPEN_CLASS, LOGIN_BTN_TEXT, LOGIN_POPUP_SHOW_CLASS, SERVER_API_NAV_ITEMS_URL } from '../../constants';
+import getData from '../../shared/get-data';
 
 class NavDrawer extends BaseComponent {
   private readonly navEl: HTMLElement;
@@ -35,8 +36,10 @@ class NavDrawer extends BaseComponent {
     this.attachListeners();
   }
 
-  private render(): void {
-    NAV_ITEMS.forEach((navItem) => this.addNavItem(navItem));
+  private async render(): Promise<void> {
+    const navItems = await getData(SERVER_API_NAV_ITEMS_URL);
+
+    navItems.forEach((navItem) => this.addNavItem(navItem));
 
     this.el.append(this.navEl, this.wrapperEl);
     this.navEl.append(this.containerEl, this.login.el);

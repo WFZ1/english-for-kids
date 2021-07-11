@@ -1,0 +1,63 @@
+@import "../../breakpoints.scss";
+
+.admin-new-category-card {
+  padding: 20px 15px 15px;
+  overflow: hidden;
+  text-decoration: none;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 16%);
+  transition: box-shadow 0.3s;
+
+  @include at ($min, $phone-lg) {
+    padding: 25px 20px 20px;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 20px rgb(0 0 0 / 40%);
+  }
+}
+
+.admin-new-category-card__title {
+  margin: 0 0 35px;
+  font-size: 22px;
+  color: #000;
+  text-align: center;
+
+  @include at ($min, $phone-lg) {
+    margin-bottom: 50px;
+  }
+}
+
+.admin-new-category-card__btn-add {
+  position: relative;
+  display: block;
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 35px;
+  padding: 0;
+  background-color: transparent;
+  border: 3px solid #666;
+  border-radius: 50%;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: #666;
+  }
+
+  &::before {
+    left: 17px;
+    right: 17px;
+    height: 7px;
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    top: 17px;
+    bottom: 17px;
+    width: 7px;
+    transform: translateX(-50%);
+  }
+}

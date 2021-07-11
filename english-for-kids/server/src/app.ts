@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import { PASSWORD, PORT, STATUS_CODES, USERNAME, ACCESS_TOKEN_SECRET, AUTH_ERROR_MESSAGE } from './constants';
+import { PASSWORD, PORT, STATUS_CODES, USERNAME, ACCESS_TOKEN_SECRET, AUTH_ERROR_MESSAGE, CATEGORIES_CARDS, NAV_ITEMS, WORDS_CARDS } from './constants';
 
 const app = express();
 
@@ -37,5 +37,11 @@ app.post('/login', (req, res) => {
     res.json({ error: AUTH_ERROR_MESSAGE });
   }
 });
+
+app.get('/api/categories', (req, res) => res.json(CATEGORIES_CARDS));
+
+app.get('/api/nav-items', (req, res) => res.json(NAV_ITEMS));
+
+app.get('/api/words', (req, res) => res.json(WORDS_CARDS));
 
 app.listen(PORT);

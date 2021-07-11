@@ -6,13 +6,15 @@ import createElement from '../../shared/create-element';
 import store from '../base/store';
 import delay from '../../shared/delay';
 import handleizeString from '../../shared/handleize-string';
+import getData from '../../shared/get-data';
+import ICategoryCardProps from '../../types/category-card-props.type';
 import IWordCardProps from '../../types/word-card-props.type';
 import IReduxReducerInitialState from '../../types/redux-reducer-initial-state.type';
 import {
-  CATEGORY_CARDS,
   GAME_START,
+  SERVER_API_CATEGORIES_URL,
+  SERVER_API_WORDS_URL,
   STATISTIC_PAGE_URL,
-  WORD_CARDS,
 } from '../../constants';
 
 export default class CategoryPage {
@@ -34,7 +36,7 @@ export default class CategoryPage {
     this.addHandlerStartGame();
   }
 
-  render(title: string): void {
+  async render(title: string): Promise<void> {
     this.cardsField.clear();
 
     this.titleEl.textContent = title;
@@ -43,7 +45,7 @@ export default class CategoryPage {
     const { category } = state;
 
     if (category !== STATISTIC_PAGE_URL) {
-      const cardsData = CategoryPage.getCategoryCardsData(category);
+      const cardsData = await CategoryPage.getCategoryCardsData(category);
       this.cardsField.addCards(cardsData, category);
     } else {
       this.handleDifficultWordsCategory(state);
@@ -57,11 +59,15 @@ export default class CategoryPage {
     );
   }
 
-  private static getCategoryCardsData(categoryName: string): IWordCardProps[] {
-    const categoryIndex = CATEGORY_CARDS.findIndex(
-      (card) => card.handle === categoryName,
+  private static async getCategoryCardsData(categoryName: string): Promise<IWordCardProps[]> {
+    const categories = await getData(SERVER_API_CATEGORIES_URL);
+    const words = await getData(SERVER_API_WORDS_URL);
+
+    const categoryIndex = categories.findIndex(
+      (card: ICategoryCardProps) => card.handle === categoryName,
     );
-    const data = WORD_CARDS[categoryIndex];
+    const data = words[categoryIndex];
+
     return data;
   }
 
@@ -70,9 +76,9 @@ export default class CategoryPage {
 
     if (!difficultWords.length) return;
 
-    difficultWords.forEach((obj) => {
+    difficultWords.forEach(async (obj) => {
       const objCategory = handleizeString(obj.category);
-      const cardsData = CategoryPage.getCategoryCardsData(objCategory);
+      const cardsData = await CategoryPage.getCategoryCardsData(objCategory);
       const word = cardsData.find((card) => card.word === obj.word);
 
       if (word) {
