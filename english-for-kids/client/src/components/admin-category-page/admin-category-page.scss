@@ -1,0 +1,17 @@
+@import "../../breakpoints.scss";
+
+.admin-category-page__title {
+  max-width: 1430px;
+  margin: 40px auto 10px;
+  padding: 0 20px;
+  font-size: 22px;
+
+  @include at ($min, $phone) {
+    padding: 0 40px;
+  }
+}
+
+.admin-category-page__title-name {
+  margin-left: 5px;
+  font-weight: 700;
+}

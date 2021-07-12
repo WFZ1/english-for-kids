@@ -8,6 +8,7 @@ import HomePage from './components/home-page/home-page';
 import CategoryPage from './components/category-page/category-page';
 import StatisticPage from './components/statistic-page/statistic-page';
 import AdminHomePage from './components/admin-home-page/admin-home-page';
+import AdminCategoryPage from './components/admin-category-page/admin-category-page';
 import GameEndSplashScreen from './components/game-end-splash-screen/game-end-splash-screen';
 import createElement from './shared/create-element';
 import delay from './shared/delay';
@@ -34,6 +35,8 @@ export default class App {
 
   private readonly adminHomePage: AdminHomePage;
 
+  private readonly adminCategoryPage: AdminCategoryPage;
+
   private readonly gameEndSplashScreenSuccess: GameEndSplashScreen;
 
   private readonly gameEndSplashScreenFail: GameEndSplashScreen;
@@ -47,6 +50,7 @@ export default class App {
     this.categoryPage = new CategoryPage(this.mainEl);
     this.statisticPage = new StatisticPage(this.mainEl);
     this.adminHomePage = new AdminHomePage(this.mainEl);
+    this.adminCategoryPage = new AdminCategoryPage(this.mainEl);
 
     this.gameEndSplashScreenSuccess = new GameEndSplashScreen(
       ['game-end-splash-screen-success'],
@@ -85,7 +89,7 @@ export default class App {
 
   addRoutes(): void {
     router
-      .add(/category\/(.*)/, (props: RegExpMatchArray) => {
+      .add(/^category\/(.*)/, (props: RegExpMatchArray) => {
         this.clearMainEl();
 
         if (App.redirectAdmin()) return;
@@ -120,6 +124,21 @@ export default class App {
         });
         this.statisticPage.render();
       })
+      .add(/admin\/category\/(.*)/, (props: RegExpMatchArray) => {
+        this.clearMainEl();
+
+        if (App.redirectUser()) return;
+
+        App.resetPageName();
+        document.body.classList.add('admin-category-page');
+
+        store.dispatch({
+          type: APP_PAGE_CHANGE,
+          currentPage: APP_PAGES.adminCategory,
+          category: props[1]
+        });
+        this.adminCategoryPage.render(props[1]);
+      })
       .add('admin', () => {
         this.clearMainEl();
 
@@ -128,6 +147,7 @@ export default class App {
         App.resetPageName();
         document.body.classList.add('admin-home-page');
 
+        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.adminHome });
         this.adminHomePage.render();
       })
       .add('', () => {

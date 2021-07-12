@@ -1,3 +1,32 @@
-.admin-home-page__categories-field {
+@import "../../breakpoints.scss";
 
+.admin-home-page__new-card {
+  text-decoration: none;
+}
+
+.admin-home-page__new-card .new-card__title {
+  margin: 0 0 35px;
+  font-size: 22px;
+
+  @include at ($min, $phone-lg) {
+    margin-bottom: 50px;
+  }
+}
+
+.admin-home-page__new-card .new-card__btn-add {
+  width: 85px;
+  height: 85px;
+  margin-bottom: 35px;
+
+  &::before {
+    height: 7px;
+    left: 17px;
+    right: 17px;
+  }
+
+  &::after {
+    width: 7px;
+    top: 17px;
+    bottom: 17px;
+  }
 }

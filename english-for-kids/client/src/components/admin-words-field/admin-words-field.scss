@@ -1,0 +1,42 @@
+@import "../../breakpoints.scss";
+
+.admin-words-field {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 423px));
+  gap: 40px;
+  max-width: 1430px;
+  padding: 20px;
+  margin: 0 auto;
+  justify-content: center;
+
+  @include at ($min, $phone) {
+    padding: 40px;
+  }
+}
+
+.admin-words-field__new-card .new-card__title {
+  margin: 30px 0 35px;
+  font-size: 36px;
+
+  @include at ($min, $phone-lg) {
+    margin-bottom: 65px;
+  }
+}
+
+.admin-words-field__new-card .new-card__btn-add {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 80px;
+
+  &::before {
+    height: 12px;
+    left: 26px;
+    right: 26px;
+  }
+
+  &::after {
+    width: 12px;
+    top: 26px;
+    bottom: 26px;
+  }
+}

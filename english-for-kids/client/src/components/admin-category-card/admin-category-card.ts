@@ -6,7 +6,7 @@ import router from '../base/router';
 import IAdminCategoryCardProps from '../../types/admin-category-card-props.type';
 
 export default class AdminCategoryCard extends Link {
-  private readonly closeEl: HTMLElement;
+  private readonly removeEl: HTMLElement;
 
   private readonly titleEl: HTMLElement;
 
@@ -19,7 +19,7 @@ export default class AdminCategoryCard extends Link {
   constructor(categoryProps: IAdminCategoryCardProps) {
     super({ classes: ['admin-category-card'], url: categoryProps.handle });
 
-    this.closeEl = createElement('span', ['admin-category-card__close']);
+    this.removeEl = createElement('span', ['admin-category-card__remove']);
     this.titleEl = createElement('h4', ['admin-category-card__title']);
     this.amountWordsEl = createElement('span', ['admin-category-card__amount-words']);
 
@@ -35,7 +35,7 @@ export default class AdminCategoryCard extends Link {
     this.amountWordsEl.textContent = 'Words:';
     this.amountWordsEl.dataset.amountWords = String(categoryProps.amountWords);
 
-    this.el.append(this.closeEl, this.titleEl, this.amountWordsEl, this.btnUpdate.el, this.btnAddWord.el);
+    this.el.append(this.removeEl, this.titleEl, this.amountWordsEl, this.btnUpdate.el, this.btnAddWord.el);
 
     this.attachHandler((e) => {
       e?.preventDefault();

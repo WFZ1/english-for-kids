@@ -39,6 +39,8 @@ export const APP_PAGES = {
   home: '',
   category: 'category',
   statistic: 'statistic',
+  adminHome: 'admin',
+  adminCategory: 'admin/category'
 };
 
 export const MY_GITHUB = {

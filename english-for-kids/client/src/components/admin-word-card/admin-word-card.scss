@@ -1,0 +1,104 @@
+@import "../../breakpoints.scss";
+
+.admin-word-card {
+  position: relative;
+  padding: 20px 15px 15px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 16%);
+  transition: box-shadow 0.3s;
+
+  @include at ($min, $phone-lg) {
+    padding: 25px 20px 20px;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 20px rgb(0 0 0 / 40%);
+  }
+}
+
+.admin-word-card__container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.admin-word-card__remove {
+  position: absolute;
+  top: 15px;
+  right: 7px;
+
+  @include at ($min, $phone-lg) {
+    top: 20px;
+    right: 10px;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: #666;
+    transform-origin: 41%;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+.admin-word-card__block {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #000;
+
+  @include at ($min, $phone) {
+    font-size: 22px;
+  }
+}
+
+.admin-word-card__subtitle {
+  font-weight: 700;
+}
+
+.admin-word-card__value {
+  margin-left: 5px;
+}
+
+.admin-word-card__word {
+  margin-right: 10px;
+}
+
+.admin-word-card__img {
+  display: block;
+  max-height: 200px;
+  margin: 10px auto 0;
+}
+
+.admin-word-card__btn {
+  margin-top: auto;
+  font-size: 22px;
+  line-height: 1;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  transition: color .5s, background-color .5s;
+}
+
+.admin-word-card__btn-change {
+  width: 100%;
+  padding: 10px 15px;
+  color: #00BF82;
+  border-color: #00BF82;
+
+  &:hover {
+    background-color: #00BF82;
+    color: #fff;
+  }
+}
