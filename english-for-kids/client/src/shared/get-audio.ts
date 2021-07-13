@@ -1,7 +1,7 @@
 export default function getAudio(
-  category: string,
+  folder: string,
   audio: string,
 ): HTMLAudioElement {
-  const src = `assets/audio/${category}/${audio}`;
+  const src = `assets/audio/${folder}/${audio}`;
   return new Audio(src);
 }

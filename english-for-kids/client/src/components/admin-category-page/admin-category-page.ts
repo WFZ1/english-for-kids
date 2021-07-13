@@ -26,7 +26,7 @@ export default class AdminCategoryPage {
     const { category } = store.getState();
 
     const cardsData = await AdminCategoryPage.getCategoryCardsData(category);
-    this.adminWordsField.addCards(cardsData, category);
+    this.adminWordsField.addCards(cardsData);
 
     this.rootEl.append(this.adminWordsField.el);
   }

@@ -20,11 +20,9 @@ export default class AdminWordsField extends BaseComponent {
     this.el.innerHTML = '';
   }
 
-  addCards(wordCards: IWordCardProps[], categoryName: string): void {
+  addCards(wordCards: IWordCardProps[]): void {
     wordCards.forEach((cardProps) => {
-      cardProps.image = `assets/images/category-cards/${categoryName}/${cardProps.image}`;
-
-      const wordCard = new AdminWordCard(cardProps, categoryName);
+      const wordCard = new AdminWordCard(cardProps);
 
       this.cards.push(wordCard);
       this.el.append(wordCard.el);

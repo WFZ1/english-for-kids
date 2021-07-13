@@ -1,8 +1,12 @@
+import path from 'path';
 import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import { PASSWORD, PORT, STATUS_CODES, USERNAME, ACCESS_TOKEN_SECRET, AUTH_ERROR_MESSAGE, CATEGORIES_CARDS, NAV_ITEMS, WORDS_CARDS } from './constants';
+import { PASSWORD, PORT, STATUS_CODES, USERNAME, ACCESS_TOKEN_SECRET, AUTH_ERROR_MESSAGE } from './constants/constants';
+import { CATEGORIES_CARDS } from './constants/categories-cards';
+import { WORDS_CARDS } from './constants/words-cards';
+import { NAV_ITEMS } from './constants/nav-items';
 
 const app = express();
 
@@ -26,6 +30,29 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
+const wordsImagesPath = path.join(__dirname, '../public/assets/images/categories-cards');
+const wordsAudiosPath = path.join(__dirname, '../public/assets/audios/categories-cards');
+
+function getMediaFileUrl(filePath: string) {
+  const pathArr = filePath.split('/');
+  const folder = pathArr[pathArr.length - 2];
+  const file = pathArr[pathArr.length - 1];
+
+  return { folder, file };
+}
+
+app.get(/\/api\/word-image/, (req, res) => {
+  const { folder, file } = getMediaFileUrl(req.path);
+
+  res.sendFile(`${ wordsImagesPath }/${ folder }/${ file }`);
+});
+
+app.get(/\/api\/word-audio/, (req, res) => {
+  const { folder, file } = getMediaFileUrl(req.path);
+
+  res.sendFile(`${ wordsAudiosPath }/${ folder }/${ file }`);
+});
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -39,9 +66,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/api/categories', (req, res) => res.json(CATEGORIES_CARDS));
-
 app.get('/api/nav-items', (req, res) => res.json(NAV_ITEMS));
-
 app.get('/api/words', (req, res) => res.json(WORDS_CARDS));
 
 app.listen(PORT);

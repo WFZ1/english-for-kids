@@ -160,10 +160,7 @@ export default class CardsField extends BaseComponent {
   }
 
   addCard(cardProps: IWordCardProps, categoryName: string): void {
-    const newCardProps = { ...cardProps };
-    newCardProps.image = `assets/images/category-cards/${categoryName}/${cardProps.image}`;
-
-    const wordCard = new WordCard(newCardProps, categoryName);
+    const wordCard = new WordCard(cardProps, categoryName);
 
     this.cards.push(wordCard);
     this.el.append(wordCard.el);

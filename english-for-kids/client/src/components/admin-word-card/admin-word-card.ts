@@ -2,7 +2,6 @@ import './admin-word-card.scss';
 import BaseComponent from '../base/base-component';
 import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
-import getAudio from '../../shared/get-audio';
 import IWordCardProps from '../../types/word-card-props.type';
 
 export default class AdminWordCard extends BaseComponent {
@@ -22,7 +21,7 @@ export default class AdminWordCard extends BaseComponent {
 
   private readonly btnChange: Btn;
 
-  constructor(cardProps: IWordCardProps, categoryName: string) {
+  constructor(cardProps: IWordCardProps) {
     super('div', ['admin-word-card']);
 
     this.containerEl = createElement('div', ['admin-word-card__container']);
@@ -30,7 +29,7 @@ export default class AdminWordCard extends BaseComponent {
     this.wordEl = createElement('span', ['admin-word-card__word']);
     this.translationEl = createElement('span', ['admin-word-card__translation']);
     this.audioNameEl = createElement('span', ['admin-word-card__audio']);
-    this.audioFileEl = getAudio(`category-cards/${categoryName}`, cardProps.audio);
+    this.audioFileEl = new Audio(cardProps.audio);
     this.imageEl = createElement('img', ['admin-word-card__img']);
 
     this.btnChange = new Btn({ classes: ['admin-word-card__btn', 'admin-word-card__btn-change'], text: 'Change' });
@@ -45,7 +44,8 @@ export default class AdminWordCard extends BaseComponent {
     this.translationEl.textContent = cardProps.translation;
     this.createRow('Translation:', this.translationEl);
 
-    this.audioNameEl.textContent = cardProps.audio;
+    const audioPathArr = cardProps.audio.split('/');
+    this.audioNameEl.textContent = audioPathArr[audioPathArr.length - 1];
     this.createRow('Sound file:', this.audioNameEl);
 
     this.imageEl.setAttribute('src', cardProps.image);

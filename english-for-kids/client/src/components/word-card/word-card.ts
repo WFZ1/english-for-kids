@@ -2,7 +2,6 @@ import './word-card.scss';
 import BaseComponent from '../base/base-component';
 import createElement from '../../shared/create-element';
 import delay from '../../shared/delay';
-import getAudio from '../../shared/get-audio';
 import IWordCardProps from '../../types/word-card-props.type';
 import { CARD_FLIP_CLASS, CARD_FLIP_DURATION } from '../../constants';
 
@@ -38,7 +37,7 @@ export default class WordCard extends BaseComponent {
 
     this.rotateEl = createElement('span', ['word-card__rotate']);
 
-    this.audioEl = getAudio(`category-cards/${categoryName}`, cardProps.audio);
+    this.audioEl = new Audio(cardProps.audio);
 
     this.render(cardProps, categoryName);
   }

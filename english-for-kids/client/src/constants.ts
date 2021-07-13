@@ -163,6 +163,8 @@ export const LOGIN_FORM_SUBMIT_BTN = {
 
 export const SERVER_URL = 'http://localhost:7000';
 
+export const SERVER_API_CATEGORY_IMAGE_URL = `${ SERVER_URL }/api/category-image`;
+
 export const SERVER_API_CATEGORIES_URL = `${ SERVER_URL }/api/categories`;
 
 export const SERVER_API_WORDS_URL = `${ SERVER_URL }/api/words`;
