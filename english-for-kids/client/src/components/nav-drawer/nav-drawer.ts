@@ -17,7 +17,7 @@ class NavDrawer extends BaseComponent {
 
   private readonly wrapperEl: HTMLElement;
 
-  readonly navItems: HTMLElement[] = [];
+  navItems: HTMLElement[] = [];
 
   constructor() {
     super('div', ['nav-drawer']);
@@ -32,11 +32,13 @@ class NavDrawer extends BaseComponent {
 
     this.wrapperEl = createElement('div', ['nav-drawer__wrapper']);
 
-    this.render();
     this.attachListeners();
+    this.render();
   }
 
-  private async render(): Promise<void> {
+  async render(): Promise<void> {
+    this.clear();
+
     const navItems = await getData(SERVER_API_NAV_ITEMS_URL);
 
     navItems.forEach((navItem) => this.addNavItem(navItem));
@@ -49,6 +51,7 @@ class NavDrawer extends BaseComponent {
     const itemEl = createElement('li', ['nav-drawer__item']);
     const link = new Link({ classes: ['nav-drawer__link'], url, text });
 
+    // TODO: do events delegation
     link.attachHandler((e) => {
       e?.preventDefault();
       NavDrawer.handleNavItem(url);
@@ -80,6 +83,11 @@ class NavDrawer extends BaseComponent {
     if (e.target === this.wrapperEl) {
       document.body.classList.remove(HAMB_MENU_OPEN_CLASS);
     }
+  }
+
+  private clear(): void {
+    this.containerEl.innerHTML = '';
+    this.navItems = [];
   }
 }
 

@@ -46,8 +46,11 @@ export default class CategoryPage {
 
     if (category !== STATISTIC_PAGE_URL) {
       const cardsData = await CategoryPage.getCategoryCardsData(category);
+      if (!cardsData) return;
+
       this.cardsField.addCards(cardsData, category);
-    } else {
+    }
+    else {
       this.handleDifficultWordsCategory(state);
     }
 
@@ -79,6 +82,9 @@ export default class CategoryPage {
     difficultWords.forEach(async (obj) => {
       const objCategory = handleizeString(obj.category);
       const cardsData = await CategoryPage.getCategoryCardsData(objCategory);
+
+      if (!cardsData) return;
+
       const word = cardsData.find((card) => card.word === obj.word);
 
       if (word) {

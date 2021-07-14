@@ -25,13 +25,19 @@
 
 .admin-category-card__remove {
   position: absolute;
-  top: 15px;
-  right: 7px;
+  top: 5px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  box-sizing: content-box;
+  background-color: transparent;
+  border: 0;
   cursor: pointer;
 
   @include at ($min, $phone-lg) {
-    top: 25px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
   }
 
   &::before,
@@ -110,5 +116,6 @@
 }
 
 .admin-category-card__link-to-word {
+  text-align: center;
   text-decoration: none;
 }

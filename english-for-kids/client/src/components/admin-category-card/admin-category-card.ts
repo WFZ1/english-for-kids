@@ -1,26 +1,30 @@
 import './admin-category-card.scss';
-import Link from '../base/link/link';
+import BaseComponent from '../base/base-component';
 import Btn from '../base/btn/btn';
+import Link from '../base/link/link';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import IAdminCategoryCardProps from '../../types/admin-category-card-props.type';
-import BaseComponent from '../base/base-component';
 
 export default class AdminCategoryCard extends BaseComponent {
-  private readonly removeEl: HTMLElement;
+  readonly categoryName: string;
+
+  readonly btnRemove: Btn;
 
   private readonly titleEl: HTMLElement;
 
   private readonly amountWordsEl: HTMLElement;
 
-  private readonly btnUpdate: Btn;
+  readonly btnUpdate: Btn;
 
-  private readonly linkToWord: Link;
+  readonly linkToWord: Link;
 
   constructor(categoryProps: IAdminCategoryCardProps) {
     super('div', ['admin-category-card']);
 
-    this.removeEl = createElement('span', ['admin-category-card__remove']);
+    this.categoryName = categoryProps.handle;
+
+    this.btnRemove = new Btn({ classes: ['admin-category-card__remove'] });
     this.titleEl = createElement('h4', ['admin-category-card__title']);
     this.amountWordsEl = createElement('span', ['admin-category-card__amount-words']);
 
@@ -36,7 +40,7 @@ export default class AdminCategoryCard extends BaseComponent {
     this.amountWordsEl.textContent = 'Words:';
     this.amountWordsEl.dataset.amountWords = String(categoryProps.amountWords);
 
-    this.el.append(this.removeEl, this.titleEl, this.amountWordsEl, this.btnUpdate.el, this.linkToWord.el);
+    this.el.append(this.btnRemove.el, this.titleEl, this.amountWordsEl, this.btnUpdate.el, this.linkToWord.el);
 
     this.linkToWord.attachHandler((e) => {
       e?.preventDefault();

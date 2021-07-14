@@ -27,12 +27,6 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
-
-const wordsImagesPath = path.join(__dirname, '../public/assets/images/categories-cards');
-const wordsAudiosPath = path.join(__dirname, '../public/assets/audios/categories-cards');
-
 function getMediaFileUrl(filePath: string) {
   const pathArr = filePath.split('/');
   const folder = pathArr[pathArr.length - 2];
@@ -40,6 +34,22 @@ function getMediaFileUrl(filePath: string) {
 
   return { folder, file };
 }
+
+function deleteCategory(name: string): void {
+  const index = CATEGORIES_CARDS.findIndex((cat) => cat.handle === name);
+
+  if (index < 0) throw Error('Category not found');
+
+  CATEGORIES_CARDS.splice(index, 1);
+  WORDS_CARDS.splice(index, 1);
+  NAV_ITEMS.splice(index + 1, 1);
+}
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+
+const wordsImagesPath = path.join(__dirname, '../public/assets/images/categories-cards');
+const wordsAudiosPath = path.join(__dirname, '../public/assets/audios/categories-cards');
 
 app.get(/\/api\/word-image/, (req, res) => {
   const { folder, file } = getMediaFileUrl(req.path);
@@ -65,8 +75,21 @@ app.post('/login', (req, res) => {
   }
 });
 
-app.get('/api/categories', (req, res) => res.json(CATEGORIES_CARDS));
 app.get('/api/nav-items', (req, res) => res.json(NAV_ITEMS));
+
+app.get('/api/categories', (req, res) => res.json(CATEGORIES_CARDS));
+
+app.delete('/api/categories/:name', async (req, res) => {
+  const categoryName = req.params.name;
+
+  try {
+    deleteCategory(categoryName);
+    res.sendStatus(STATUS_CODES.ok);
+  } catch (e) {
+    res.status(STATUS_CODES.badRequest).send(e);
+  }
+});
+
 app.get('/api/words', (req, res) => res.json(WORDS_CARDS));
 
 app.listen(PORT);

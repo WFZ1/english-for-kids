@@ -150,10 +150,14 @@ export default class App {
         store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.adminHome });
         this.adminHomePage.render();
       })
-      .add('', () => {
+      .add('', async () => {
         this.clearMainEl();
 
         if (App.redirectAdmin()) return;
+
+        if(store.getState().isLogInOutDone) {
+          await navDrawer.render();
+        }
 
         App.resetPageName();
         document.body.classList.add('home-page');
