@@ -7,7 +7,6 @@
   padding: 20px 15px 15px;
   overflow: hidden;
   font-size: 22px;
-  text-decoration: none;
   color: #000;
   border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 5px;
@@ -28,6 +27,7 @@
   position: absolute;
   top: 15px;
   right: 7px;
+  cursor: pointer;
 
   @include at ($min, $phone-lg) {
     top: 25px;
@@ -107,4 +107,8 @@
   @include at ($max, $phone-lg - 1) {
     margin-bottom: 15px;
   }
+}
+
+.admin-category-card__link-to-word {
+  text-decoration: none;
 }
