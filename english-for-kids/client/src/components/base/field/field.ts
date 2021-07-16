@@ -17,8 +17,11 @@ export default class Field extends BaseComponent {
   private render(props: IField): void {
     this.input.setAttribute('type', props.type);
     this.input.setAttribute('name', props.name);
-    this.input.setAttribute('placeholder', props.placeholder);
     this.input.setAttribute('maxlength', props.maxlength);
+
+    if (props.placeholder) this.input.setAttribute('placeholder', props.placeholder);
+
+    if (props.value) this.input.setAttribute('value', props.value);
 
     if (props.required) this.input.setAttribute('required', '');
 
@@ -29,5 +32,13 @@ export default class Field extends BaseComponent {
     }
 
     this.el.append(this.input);
+  }
+
+  setValue(value: string): void {
+    this.input.setAttribute('value', value);
+  }
+
+  getValue(): string {
+    return this.input.value;
   }
 }

@@ -167,6 +167,8 @@ export const SERVER_API_CATEGORY_IMAGE_URL = `${ SERVER_URL }/api/category-image
 
 export const SERVER_API_CATEGORIES_URL = `${ SERVER_URL }/api/categories`;
 
+export const SERVER_API_CATEGORY_URL = `${ SERVER_URL }/api/category`;
+
 export const SERVER_API_WORDS_URL = `${ SERVER_URL }/api/words`;
 
 export const SERVER_API_NAV_ITEMS_URL = `${ SERVER_URL }/api/nav-items`;

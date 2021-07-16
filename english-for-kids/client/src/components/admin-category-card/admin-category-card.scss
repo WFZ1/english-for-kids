@@ -2,8 +2,8 @@
 
 .admin-category-card {
   position: relative;
-  display: grid;
-  column-gap: 15px;
+  display: flex;
+  flex-direction: column;
   padding: 20px 15px 15px;
   overflow: hidden;
   font-size: 22px;
@@ -15,12 +15,22 @@
 
   @include at ($min, $phone-lg) {
     padding: 25px 20px 20px;
-    justify-content: space-between;
   }
 
   &:hover {
     box-shadow: 0 10px 20px rgb(0 0 0 / 40%);
   }
+}
+
+.admin-category-card__container {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr;
+  column-gap: 15px;
+}
+
+.admin-category-card__container_hidden {
+  display: none;
 }
 
 .admin-category-card__remove {
@@ -94,14 +104,20 @@
 
 .admin-category-card__btn {
   min-width: 120px;
-  padding: 4px 10px;
   font-size: 22px;
   line-height: 1;
-  color: #00BF82;
   background-color: transparent;
-  border: 2px solid #00BF82;
   border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
   transition: color .5s, background-color .5s;
+}
+
+.admin-category-card__btn-update,
+.admin-category-card__link-to-word {
+  padding: 4px 10px;
+  color: #00BF82;
+  border-color: #00BF82;
 
   &:hover {
     background-color: #00BF82;
@@ -116,6 +132,15 @@
 }
 
 .admin-category-card__link-to-word {
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
+}
+
+.admin-category-card__form-update {
+  height: 100%;
+  grid-template-rows: auto auto 1fr;
+  margin-top: 30px;
+  align-items: end;
 }
