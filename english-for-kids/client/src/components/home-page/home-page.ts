@@ -21,7 +21,9 @@ export default class HomePage {
     this.categoriesField.clear();
 
     const categories = await getData(SERVER_API_CATEGORIES_URL);
-    const categoriesCards = categories.map((categoryProps) => new CategoryCard(categoryProps));
+    const categoriesCards = categories.map(
+      (categoryProps) => new CategoryCard(categoryProps),
+    );
 
     this.categoriesField.addCards(categoriesCards);
   }

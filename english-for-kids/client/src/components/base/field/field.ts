@@ -19,7 +19,8 @@ export default class Field extends BaseComponent {
     this.input.setAttribute('name', props.name);
     this.input.setAttribute('maxlength', props.maxlength);
 
-    if (props.placeholder) this.input.setAttribute('placeholder', props.placeholder);
+    if (props.placeholder)
+      this.input.setAttribute('placeholder', props.placeholder);
 
     if (props.value) this.input.setAttribute('value', props.value);
 

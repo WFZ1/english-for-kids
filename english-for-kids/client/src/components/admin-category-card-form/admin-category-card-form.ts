@@ -18,9 +18,26 @@ export default class AdminCategoryCardForm extends BaseComponent {
     super('form', props.formClasses.concat(['admin-category-card-form']));
 
     this.label = createElement('label', ['admin-category-card-form__label']);
-    this.field = new Field({ classes: ['admin-category-card-form__field'], type: 'text', name: 'name', maxlength: '30' });
-    this.btnCancel = new Btn({ classes: props.btnClasses.concat(['admin-category-card-form__btn-cancel', props.btnCancelClass]), text: 'Cancel' });
-    this.btnAct = new Btn({ classes: props.btnClasses.concat(['admin-category-card-form__btn-act', props.btnActClass]), text: props.btnActText });
+    this.field = new Field({
+      classes: ['admin-category-card-form__field'],
+      type: 'text',
+      name: 'name',
+      maxlength: '30',
+    });
+    this.btnCancel = new Btn({
+      classes: props.btnClasses.concat([
+        'admin-category-card-form__btn-cancel',
+        props.btnCancelClass,
+      ]),
+      text: 'Cancel',
+    });
+    this.btnAct = new Btn({
+      classes: props.btnClasses.concat([
+        'admin-category-card-form__btn-act',
+        props.btnActClass,
+      ]),
+      text: props.btnActText,
+    });
 
     this.render(props);
   }
@@ -33,6 +50,11 @@ export default class AdminCategoryCardForm extends BaseComponent {
 
     if (props.inputValue) this.field.setValue(props.inputValue);
 
-    this.el.append(this.label, this.field.el, this.btnCancel.el, this.btnAct.el);
+    this.el.append(
+      this.label,
+      this.field.el,
+      this.btnCancel.el,
+      this.btnAct.el,
+    );
   }
 }

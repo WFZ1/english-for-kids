@@ -25,6 +25,7 @@ export default class LoginPopup extends Popup {
   }
 
   protected checkClickIsOutside(e: Event): void {
-    if (e.target === this.el) document.body.classList.remove(LOGIN_POPUP_SHOW_CLASS);
+    if (e.target === this.el)
+      document.body.classList.remove(LOGIN_POPUP_SHOW_CLASS);
   }
 }

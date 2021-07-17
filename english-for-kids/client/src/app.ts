@@ -91,7 +91,9 @@ export default class App {
     router
       .add(/^category\/(.*)/, (props) => this.renderCategoryPage(props))
       .add('statistic', () => this.renderStatisticPage())
-      .add(/admin\/category\/(.*)/, (props) => this.renderAdminCategoryPage(props))
+      .add(/admin\/category\/(.*)/, (props) =>
+        this.renderAdminCategoryPage(props),
+      )
       .add('admin', () => this.renderAdminHomePage())
       .add('', () => this.renderHomePage());
   }
@@ -144,7 +146,7 @@ export default class App {
     store.dispatch({
       type: APP_PAGE_CHANGE,
       currentPage: APP_PAGES.adminCategory,
-      category: props[1]
+      category: props[1],
     });
     this.adminCategoryPage.render(props[1]);
   }
@@ -166,7 +168,7 @@ export default class App {
 
     if (App.redirectAdmin()) return;
 
-    if(store.getState().isLogInOutDone) {
+    if (store.getState().isLogInOutDone) {
       await navDrawer.render();
     }
 
@@ -267,8 +269,7 @@ export default class App {
 
       document.body.classList.remove('game-mode-play');
       document.body.classList.remove('game-mode-train');
-    }
-    else {
+    } else {
       header.changeView();
       this.renderUserPart();
     }

@@ -1,4 +1,4 @@
-import { CATEGORIES_CARDS } from "./categories-cards";
+import { CATEGORIES_CARDS } from './categories-cards';
 
 export const NAV_ITEMS = [
   {

@@ -40,7 +40,7 @@ export const APP_PAGES = {
   category: 'category',
   statistic: 'statistic',
   adminHome: 'admin',
-  adminCategory: 'admin/category'
+  adminCategory: 'admin/category',
 };
 
 export const MY_GITHUB = {
@@ -106,12 +106,12 @@ export const GAME_END_SPLASH_SCREEN = {
 export const ADMIN_NAV_ITEMS = [
   {
     text: 'Categories',
-    url: 'admin/categories'
+    url: 'admin/categories',
   },
   {
     text: 'Words',
-    url: 'admin/words'
-  }
+    url: 'admin/words',
+  },
 ];
 
 export const STATISTIC_TABLE_TITLES = [
@@ -138,14 +138,14 @@ export const LOGIN_FORM_USERNAME_FIELD = {
   type: 'text',
   name: 'username',
   placeholder: 'username',
-  maxlength: '30'
+  maxlength: '30',
 };
 
 export const LOGIN_FORM_PASSWORD_FIELD = {
   type: 'password',
   name: 'password',
   placeholder: 'password',
-  maxlength: '30'
+  maxlength: '30',
 };
 
 export const LOGIN_BTN_TEXT = 'Login';
@@ -153,22 +153,22 @@ export const LOGOUT_BTN_TEXT = 'Log out';
 
 export const LOGIN_FORM_CANCEL_BTN = {
   text: 'Cancel',
-  type: 'reset'
+  type: 'reset',
 };
 
 export const LOGIN_FORM_SUBMIT_BTN = {
   text: 'Login',
-  type: 'submit'
+  type: 'submit',
 };
 
 export const SERVER_URL = 'http://localhost:7000';
 
-export const SERVER_API_CATEGORY_IMAGE_URL = `${ SERVER_URL }/api/category-image`;
+export const SERVER_API_CATEGORY_IMAGE_URL = `${SERVER_URL}/api/category-image`;
 
-export const SERVER_API_CATEGORIES_URL = `${ SERVER_URL }/api/categories`;
+export const SERVER_API_CATEGORIES_URL = `${SERVER_URL}/api/categories`;
 
-export const SERVER_API_CATEGORY_URL = `${ SERVER_URL }/api/category`;
+export const SERVER_API_CATEGORY_URL = `${SERVER_URL}/api/category`;
 
-export const SERVER_API_WORDS_URL = `${ SERVER_URL }/api/words`;
+export const SERVER_API_WORDS_URL = `${SERVER_URL}/api/words`;
 
-export const SERVER_API_NAV_ITEMS_URL = `${ SERVER_URL }/api/nav-items`;
+export const SERVER_API_NAV_ITEMS_URL = `${SERVER_URL}/api/nav-items`;

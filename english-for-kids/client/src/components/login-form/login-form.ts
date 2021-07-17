@@ -5,7 +5,15 @@ import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import type LoginPopup from '../login-popup/login-popup';
-import { SERVER_URL, LOGIN_FORM_CANCEL_BTN, LOGIN_FORM_USERNAME_FIELD, LOGIN_FORM_PASSWORD_FIELD, LOGIN_FORM_SUBMIT_BTN, LOGIN_POPUP_SHOW_CLASS, APP_AUTHORIZATION } from '../../constants';
+import {
+  SERVER_URL,
+  LOGIN_FORM_CANCEL_BTN,
+  LOGIN_FORM_USERNAME_FIELD,
+  LOGIN_FORM_PASSWORD_FIELD,
+  LOGIN_FORM_SUBMIT_BTN,
+  LOGIN_POPUP_SHOW_CLASS,
+  APP_AUTHORIZATION,
+} from '../../constants';
 import store from '../base/store';
 
 export default class LoginForm extends BaseComponent {
@@ -24,7 +32,7 @@ export default class LoginForm extends BaseComponent {
 
     this.username = new Field({
       ...LOGIN_FORM_USERNAME_FIELD,
-      classes: ['login-form__field', 'login-form__username']
+      classes: ['login-form__field', 'login-form__username'],
     });
 
     this.password = new Field({
@@ -32,16 +40,19 @@ export default class LoginForm extends BaseComponent {
       classes: ['login-form__field', 'login-form__password'],
     });
 
-    this.errorEl = createElement('p', ['login-form__error', 'login-form__error_hidden']);
+    this.errorEl = createElement('p', [
+      'login-form__error',
+      'login-form__error_hidden',
+    ]);
 
     this.cancel = new Btn({
       ...LOGIN_FORM_CANCEL_BTN,
-      classes: ['btn', 'login-form__btn', 'login-form__cancel']
+      classes: ['btn', 'login-form__btn', 'login-form__cancel'],
     });
 
     this.submit = new Btn({
       ...LOGIN_FORM_SUBMIT_BTN,
-      classes: ['btn', 'login-form__btn', 'login-form__submit']
+      classes: ['btn', 'login-form__btn', 'login-form__submit'],
     });
 
     this.attachListener();
@@ -49,12 +60,18 @@ export default class LoginForm extends BaseComponent {
   }
 
   private render(): void {
-    this.el.setAttribute('action', `${ SERVER_URL }/login`);
+    this.el.setAttribute('action', `${SERVER_URL}/login`);
     this.el.setAttribute('method', 'post');
 
     this.cancel.attachHandler(this.handleCancel.bind(this));
 
-    this.el.append(this.username.el, this.password.el, this.errorEl, this.cancel.el, this.submit.el);
+    this.el.append(
+      this.username.el,
+      this.password.el,
+      this.errorEl,
+      this.cancel.el,
+      this.submit.el,
+    );
   }
 
   private attachListener(): void {
@@ -74,15 +91,20 @@ export default class LoginForm extends BaseComponent {
     const formData = new FormData(this.el as HTMLFormElement);
     const data = [...formData.entries()];
     const serializeData = data
-      .map(entry => `${ encodeURIComponent(entry[0]) }=${ encodeURIComponent(entry[1] as string) }`)
+      .map(
+        (entry) =>
+          `${encodeURIComponent(entry[0])}=${encodeURIComponent(
+            entry[1] as string,
+          )}`,
+      )
       .join('&');
 
-    const response = await fetch(`${ SERVER_URL }/login`, {
+    const response = await fetch(`${SERVER_URL}/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: serializeData
+      body: serializeData,
     });
 
     const respData = await response.json();
@@ -93,8 +115,7 @@ export default class LoginForm extends BaseComponent {
       router.navigate('admin/categories');
       localStorage.setItem('authToken', respData.accessToken);
       store.dispatch({ type: APP_AUTHORIZATION, isAdmin: true });
-    }
-    else {
+    } else {
       this.errorEl.textContent = respData.error;
       this.errorEl.classList.remove('login-form__error_hidden');
     }

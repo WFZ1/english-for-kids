@@ -7,7 +7,11 @@ import IGameStatistic from '../../types/game-statistic.type';
 import ICategoryCardProps from '../../types/category-card-props.type';
 import IWordCardProps from '../../types/word-card-props.type';
 import IStatisticTableRowValues from '../../types/statistic-table-row-values.type';
-import { PERCENT_100, SERVER_API_CATEGORIES_URL, SERVER_API_WORDS_URL } from '../../constants';
+import {
+  PERCENT_100,
+  SERVER_API_CATEGORIES_URL,
+  SERVER_API_WORDS_URL,
+} from '../../constants';
 
 export default class StatisticTableBody extends BaseComponent {
   rows: StatisticTableRow[] = [];

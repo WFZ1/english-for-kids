@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .new-card {
   padding: 20px 15px 15px;
@@ -9,7 +9,7 @@
   box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 16%);
   transition: box-shadow 0.3s;
 
-  @include at ($min, $phone-lg) {
+  @include at($min, $phone-lg) {
     padding: 25px 20px 20px;
   }
 
@@ -34,7 +34,7 @@
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     background-color: #666;
   }

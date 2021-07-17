@@ -6,7 +6,11 @@ import createElement from '../../shared/create-element';
 import router from '../base/router';
 import store from '../base/store';
 import INavItem from '../../types/nav-item.type';
-import { ADMIN_NAV_ITEMS, APP_AUTHORIZATION, LOGOUT_BTN_TEXT } from '../../constants';
+import {
+  ADMIN_NAV_ITEMS,
+  APP_AUTHORIZATION,
+  LOGOUT_BTN_TEXT,
+} from '../../constants';
 
 class AdminNav extends BaseComponent {
   private readonly containerEl: HTMLElement;
@@ -22,7 +26,7 @@ class AdminNav extends BaseComponent {
 
     this.logout = new Btn({
       classes: ['admin-nav__logout'],
-      text: LOGOUT_BTN_TEXT
+      text: LOGOUT_BTN_TEXT,
     });
 
     this.render();

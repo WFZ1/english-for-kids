@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .admin-words-field {
   display: grid;
@@ -9,7 +9,7 @@
   margin: 0 auto;
   justify-content: center;
 
-  @include at ($min, $phone) {
+  @include at($min, $phone) {
     padding: 40px;
   }
 }
@@ -18,7 +18,7 @@
   margin: 30px 0 35px;
   font-size: 36px;
 
-  @include at ($min, $phone-lg) {
+  @include at($min, $phone-lg) {
     margin-bottom: 65px;
   }
 }

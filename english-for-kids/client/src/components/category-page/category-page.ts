@@ -49,8 +49,7 @@ export default class CategoryPage {
       if (!cardsData) return;
 
       this.cardsField.addCards(cardsData, category);
-    }
-    else {
+    } else {
       this.handleDifficultWordsCategory(state);
     }
 
@@ -62,7 +61,9 @@ export default class CategoryPage {
     );
   }
 
-  private static async getCategoryCardsData(categoryName: string): Promise<IWordCardProps[]> {
+  private static async getCategoryCardsData(
+    categoryName: string,
+  ): Promise<IWordCardProps[]> {
     const categories = await getData(SERVER_API_CATEGORIES_URL);
     const words = await getData(SERVER_API_WORDS_URL);
 

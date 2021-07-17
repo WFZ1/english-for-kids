@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .admin-category-page__title {
   max-width: 1430px;
@@ -6,7 +6,7 @@
   padding: 0 20px;
   font-size: 22px;
 
-  @include at ($min, $phone) {
+  @include at($min, $phone) {
     padding: 0 40px;
   }
 }

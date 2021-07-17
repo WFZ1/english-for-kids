@@ -5,7 +5,12 @@ import Btn from '../base/btn/btn';
 import createElement from '../../shared/create-element';
 import router from '../base/router';
 import INavItem from '../../types/nav-item.type';
-import { HAMB_MENU_OPEN_CLASS, LOGIN_BTN_TEXT, LOGIN_POPUP_SHOW_CLASS, SERVER_API_NAV_ITEMS_URL } from '../../constants';
+import {
+  HAMB_MENU_OPEN_CLASS,
+  LOGIN_BTN_TEXT,
+  LOGIN_POPUP_SHOW_CLASS,
+  SERVER_API_NAV_ITEMS_URL,
+} from '../../constants';
 import getData from '../../shared/get-data';
 
 class NavDrawer extends BaseComponent {
@@ -27,7 +32,7 @@ class NavDrawer extends BaseComponent {
 
     this.login = new Btn({
       classes: ['nav-drawer__login'],
-      text: LOGIN_BTN_TEXT
+      text: LOGIN_BTN_TEXT,
     });
 
     this.wrapperEl = createElement('div', ['nav-drawer__wrapper']);

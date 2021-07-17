@@ -21,8 +21,8 @@ function reducer(
       return {
         ...state,
         isAdmin: action.isAdmin || false,
-        isLogInOutDone: true
-      }
+        isLogInOutDone: true,
+      };
     case APP_PAGE_CHANGE: {
       return {
         ...state,
@@ -32,7 +32,7 @@ function reducer(
         isPageChange: true,
         isGameStart: false,
         isCardCorrect: false,
-        isCardError: false
+        isCardError: false,
       };
     }
     case GAME_MODE_CHANGE:

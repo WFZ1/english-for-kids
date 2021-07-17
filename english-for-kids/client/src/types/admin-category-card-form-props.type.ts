@@ -4,7 +4,7 @@ export default interface IAdminCategoryCardFormProps {
   formMethod: string;
   inputValue?: string;
   btnClasses: string[];
-  btnCancelClass: string
+  btnCancelClass: string;
   btnActClass: string;
   btnActText: string;
 }

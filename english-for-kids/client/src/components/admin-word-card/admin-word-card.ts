@@ -27,12 +27,17 @@ export default class AdminWordCard extends BaseComponent {
     this.containerEl = createElement('div', ['admin-word-card__container']);
     this.removeEl = createElement('span', ['admin-word-card__remove']);
     this.wordEl = createElement('span', ['admin-word-card__word']);
-    this.translationEl = createElement('span', ['admin-word-card__translation']);
+    this.translationEl = createElement('span', [
+      'admin-word-card__translation',
+    ]);
     this.audioNameEl = createElement('span', ['admin-word-card__audio']);
     this.audioFileEl = new Audio(cardProps.audio);
     this.imageEl = createElement('img', ['admin-word-card__img']);
 
-    this.btnChange = new Btn({ classes: ['admin-word-card__btn', 'admin-word-card__btn-change'], text: 'Change' });
+    this.btnChange = new Btn({
+      classes: ['admin-word-card__btn', 'admin-word-card__btn-change'],
+      text: 'Change',
+    });
 
     this.render(cardProps);
   }

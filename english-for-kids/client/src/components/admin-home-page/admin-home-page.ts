@@ -5,7 +5,10 @@ import NewCard from '../new-card/new-card';
 import getData from '../../shared/get-data';
 import getContainEl from '../../shared/get-contain-el';
 import IAdminCategoryCardProps from '../../types/admin-category-card-props.type';
-import { SERVER_API_CATEGORIES_URL, SERVER_API_CATEGORY_URL } from '../../constants';
+import {
+  SERVER_API_CATEGORIES_URL,
+  SERVER_API_CATEGORY_URL,
+} from '../../constants';
 import handleizeString from '../../shared/handleize-string';
 
 export default class AdminHomePage {
@@ -14,8 +17,13 @@ export default class AdminHomePage {
   private readonly newCard: NewCard;
 
   constructor(private readonly rootEl: HTMLElement) {
-    this.categoriesField = new CategoriesField(['admin-home-page__categories-field']);
-    this.newCard = new NewCard(['admin-home-page__new-card'], 'Create new Category');
+    this.categoriesField = new CategoriesField([
+      'admin-home-page__categories-field',
+    ]);
+    this.newCard = new NewCard(
+      ['admin-home-page__new-card'],
+      'Create new Category',
+    );
 
     this.attachListener();
   }
@@ -31,7 +39,10 @@ export default class AdminHomePage {
 
     const categories = await getData(SERVER_API_CATEGORIES_URL);
 
-    const categoriesCards: Array<AdminCategoryCard | NewCard> = categories.map((categoryProps: IAdminCategoryCardProps) => new AdminCategoryCard(categoryProps));
+    const categoriesCards: Array<AdminCategoryCard | NewCard> = categories.map(
+      (categoryProps: IAdminCategoryCardProps) =>
+        new AdminCategoryCard(categoryProps),
+    );
 
     categoriesCards.push(this.newCard);
 
@@ -39,7 +50,9 @@ export default class AdminHomePage {
   }
 
   private attachListener(): void {
-    this.categoriesField.el.addEventListener('click', (e) => this.attachHandler(e));
+    this.categoriesField.el.addEventListener('click', (e) =>
+      this.attachHandler(e),
+    );
   }
 
   private attachHandler(e: Event): void {
@@ -72,11 +85,17 @@ export default class AdminHomePage {
   }
 
   private getCard(e: Event, selector: string): undefined | AdminCategoryCard {
-    const target = getContainEl(e.target as HTMLElement, selector, this.categoriesField.el);
+    const target = getContainEl(
+      e.target as HTMLElement,
+      selector,
+      this.categoriesField.el,
+    );
 
     if (target) {
       const el = target.closest('.admin-category-card');
-      const pointer = (this.categoriesField.cards as AdminCategoryCard[]).find((card) => card.el === el);
+      const pointer = (this.categoriesField.cards as AdminCategoryCard[]).find(
+        (card) => card.el === el,
+      );
 
       return pointer;
     }
@@ -85,25 +104,31 @@ export default class AdminHomePage {
   }
 
   private async removeCategory(card: AdminCategoryCard): Promise<void> {
-    const res = await fetch(`${ SERVER_API_CATEGORY_URL }/${ card.categoryName }`, {
-      method: 'DELETE'
+    const res = await fetch(`${SERVER_API_CATEGORY_URL}/${card.categoryName}`, {
+      method: 'DELETE',
     });
 
     if (res.ok) {
       card.el.remove();
 
-      const index = this.categoriesField.cards.findIndex((currentCard) => currentCard === card);
+      const index = this.categoriesField.cards.findIndex(
+        (currentCard) => currentCard === card,
+      );
       this.categoriesField.cards.splice(index, 1);
     }
   }
 
   private static showFormUpdate(card: AdminCategoryCard): void {
     card.containerEl.classList.add('admin-category-card__container_hidden');
-    card.adminCategoryCardForm.el.classList.remove('admin-category-card-form_hidden');
+    card.adminCategoryCardForm.el.classList.remove(
+      'admin-category-card-form_hidden',
+    );
   }
 
   private static hideFormUpdate(card: AdminCategoryCard): void {
-    card.adminCategoryCardForm.el.classList.add('admin-category-card-form_hidden');
+    card.adminCategoryCardForm.el.classList.add(
+      'admin-category-card-form_hidden',
+    );
     card.containerEl.classList.remove('admin-category-card__container_hidden');
   }
 
@@ -114,20 +139,22 @@ export default class AdminHomePage {
 
     const data = {
       handle: handleizeString(newCardTitle),
-      title: newCardTitle
+      title: newCardTitle,
     };
 
-    const res = await fetch(`${ SERVER_API_CATEGORY_URL }/${ card.categoryName }`, {
+    const res = await fetch(`${SERVER_API_CATEGORY_URL}/${card.categoryName}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     if (res.ok) {
       card.titleEl.textContent = data.title;
-      (card.linkToWord.el as HTMLLinkElement).href = (card.linkToWord.el as HTMLLinkElement).href.replace(card.categoryName, data.handle);
+      (card.linkToWord.el as HTMLLinkElement).href = (
+        card.linkToWord.el as HTMLLinkElement
+      ).href.replace(card.categoryName, data.handle);
 
       card.categoryName = data.handle;
       AdminHomePage.hideFormUpdate(card);

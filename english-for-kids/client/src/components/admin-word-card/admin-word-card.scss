@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .admin-word-card {
   position: relative;
@@ -9,7 +9,7 @@
   box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 16%);
   transition: box-shadow 0.3s;
 
-  @include at ($min, $phone-lg) {
+  @include at($min, $phone-lg) {
     padding: 25px 20px 20px;
   }
 
@@ -29,14 +29,14 @@
   top: 15px;
   right: 7px;
 
-  @include at ($min, $phone-lg) {
+  @include at($min, $phone-lg) {
     top: 20px;
     right: 10px;
   }
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     display: block;
     width: 22px;
     height: 3px;
@@ -58,7 +58,7 @@
   font-size: 16px;
   color: #000;
 
-  @include at ($min, $phone) {
+  @include at($min, $phone) {
     font-size: 22px;
   }
 }
@@ -88,17 +88,17 @@
   background-color: transparent;
   border: 2px solid;
   border-radius: 5px;
-  transition: color .5s, background-color .5s;
+  transition: color 0.5s, background-color 0.5s;
 }
 
 .admin-word-card__btn-change {
   width: 100%;
   padding: 10px 15px;
-  color: #00BF82;
-  border-color: #00BF82;
+  color: #00bf82;
+  border-color: #00bf82;
 
   &:hover {
-    background-color: #00BF82;
+    background-color: #00bf82;
     color: #fff;
   }
 }

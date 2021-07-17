@@ -1,4 +1,4 @@
-@import "../../breakpoints.scss";
+@import '../../breakpoints.scss';
 
 .admin-home-page__new-card {
   text-decoration: none;
@@ -8,7 +8,7 @@
   margin: 0 0 35px;
   font-size: 22px;
 
-  @include at ($min, $phone-lg) {
+  @include at($min, $phone-lg) {
     margin-bottom: 50px;
   }
 }

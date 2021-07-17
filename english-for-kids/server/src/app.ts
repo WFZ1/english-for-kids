@@ -5,7 +5,14 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import fse from 'fs-extra';
-import { PASSWORD, PORT, STATUS_CODES, USERNAME, ACCESS_TOKEN_SECRET, AUTH_ERROR_MESSAGE } from './constants/constants';
+import {
+  PASSWORD,
+  PORT,
+  STATUS_CODES,
+  USERNAME,
+  ACCESS_TOKEN_SECRET,
+  AUTH_ERROR_MESSAGE,
+} from './constants/constants';
 import { CATEGORIES_CARDS } from './constants/categories-cards';
 import { WORDS_CARDS } from './constants/words-cards';
 import { NAV_ITEMS } from './constants/nav-items';
@@ -18,7 +25,7 @@ const backupAssetsFolderPath = path.join(__dirname, '../public/backup');
 
 // updateCategory function renames categories folders. For stable work app need restore default folders names when server reload
 (async () => {
-  await fse.remove(`${ publicFolderPath }/assets`);
+  await fse.remove(`${publicFolderPath}/assets`);
   fse.copy(backupAssetsFolderPath, publicFolderPath);
 })();
 
@@ -26,8 +33,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-const wordsImagesPath = path.join(__dirname, '../public/assets/images/categories-cards');
-const wordsAudiosPath = path.join(__dirname, '../public/assets/audios/categories-cards');
+const wordsImagesPath = path.join(
+  __dirname,
+  '../public/assets/images/categories-cards',
+);
+const wordsAudiosPath = path.join(
+  __dirname,
+  '../public/assets/audios/categories-cards',
+);
 
 const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -40,11 +53,10 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
 
       return next();
     });
-  }
-  else {
+  } else {
     res.sendStatus(STATUS_CODES.unauthorized);
   }
-}
+};
 
 function getMediaFileUrl(filePath: string) {
   const pathArr = filePath.split('/');
@@ -64,11 +76,16 @@ function deleteCategory(name: string): void {
   NAV_ITEMS.splice(index + 1, 1);
 }
 
-function updateCategory({ handle, title }: ICategoryUpdatingProps, catName: string): void {
+function updateCategory(
+  { handle, title }: ICategoryUpdatingProps,
+  catName: string,
+): void {
   const index = CATEGORIES_CARDS.findIndex((cat) => cat.handle === catName);
   if (index < 0) throw Error('Category not found');
 
-  const isCategoryNameUsed = CATEGORIES_CARDS.findIndex((cat) => cat.handle === handle);
+  const isCategoryNameUsed = CATEGORIES_CARDS.findIndex(
+    (cat) => cat.handle === handle,
+  );
   if (isCategoryNameUsed >= 0) throw Error('Category name used');
 
   const cat = CATEGORIES_CARDS[index];
@@ -85,23 +102,29 @@ function updateCategory({ handle, title }: ICategoryUpdatingProps, catName: stri
 
   NAV_ITEMS[index + 1] = {
     text: title,
-    url: NAV_ITEMS[index + 1].url.replace(oldHandle, handle)
+    url: NAV_ITEMS[index + 1].url.replace(oldHandle, handle),
   };
 
-  fs.renameSync(`${ wordsImagesPath }/${ oldHandle }`, `${ wordsImagesPath }/${ handle }`);
-  fs.renameSync(`${ wordsAudiosPath }/${ oldHandle }`, `${ wordsAudiosPath }/${ handle }`);
+  fs.renameSync(
+    `${wordsImagesPath}/${oldHandle}`,
+    `${wordsImagesPath}/${handle}`,
+  );
+  fs.renameSync(
+    `${wordsAudiosPath}/${oldHandle}`,
+    `${wordsAudiosPath}/${handle}`,
+  );
 }
 
 app.get(/\/api\/word-image/, (req, res) => {
   const { folder, file } = getMediaFileUrl(req.path);
 
-  res.sendFile(`${ wordsImagesPath }/${ folder }/${ file }`);
+  res.sendFile(`${wordsImagesPath}/${folder}/${file}`);
 });
 
 app.get(/\/api\/word-audio/, (req, res) => {
   const { folder, file } = getMediaFileUrl(req.path);
 
-  res.sendFile(`${ wordsAudiosPath }/${ folder }/${ file }`);
+  res.sendFile(`${wordsAudiosPath}/${folder}/${file}`);
 });
 
 app.post('/login', (req, res) => {
@@ -110,8 +133,7 @@ app.post('/login', (req, res) => {
   if (username === USERNAME && password === PASSWORD) {
     const accessToken = jwt.sign({ username: USERNAME }, ACCESS_TOKEN_SECRET);
     res.json({ accessToken });
-  }
-  else {
+  } else {
     res.json({ error: AUTH_ERROR_MESSAGE });
   }
 });
