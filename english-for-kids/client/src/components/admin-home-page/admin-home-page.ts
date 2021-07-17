@@ -25,7 +25,7 @@ export default class AdminHomePage {
       'Create new Category',
     );
 
-    this.attachListener();
+    this.attachListeners();
   }
 
   render(): void {
@@ -49,10 +49,31 @@ export default class AdminHomePage {
     this.categoriesField.addCards(categoriesCards);
   }
 
-  private attachListener(): void {
+  private attachListeners(): void {
     this.categoriesField.el.addEventListener('click', (e) =>
       this.attachHandler(e),
     );
+
+    this.categoriesField.el.addEventListener('keydown', (e) =>
+      this.handleSendUpdatingCategoryName(e),
+    );
+  }
+
+  private handleSendUpdatingCategoryName(e: KeyboardEvent): void {
+    const target = getContainEl(
+      e.target as HTMLElement,
+      '.admin-category-card-form__field .field__input',
+      this.categoriesField.el,
+    );
+
+    if (target && e.code === 'Enter') {
+      e.preventDefault();
+
+      (target
+        ?.closest('.admin-category-card-form')
+        ?.querySelector('.admin-category-card__btn-save-update') as HTMLElement)
+        ?.click();
+    }
   }
 
   private attachHandler(e: Event): void {
