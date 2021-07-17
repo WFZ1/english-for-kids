@@ -144,4 +144,4 @@ app.patch('/api/category/:name', (req, res) => {
 
 app.get('/api/words', (req, res) => res.json(WORDS_CARDS));
 
-app.listen(PORT);
+app.listen(process.env.PORT || PORT);
