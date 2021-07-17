@@ -89,85 +89,95 @@ export default class App {
 
   addRoutes(): void {
     router
-      .add(/^category\/(.*)/, (props: RegExpMatchArray) => {
-        this.clearMainEl();
+      .add(/^category\/(.*)/, (props) => this.renderCategoryPage(props))
+      .add('statistic', () => this.renderStatisticPage())
+      .add(/admin\/category\/(.*)/, (props) => this.renderAdminCategoryPage(props))
+      .add('admin', () => this.renderAdminHomePage())
+      .add('', () => this.renderHomePage());
+  }
 
-        if (App.redirectAdmin()) return;
+  private renderCategoryPage(props: RegExpMatchArray): void {
+    this.clearMainEl();
 
-        App.resetPageName();
-        document.body.classList.add('category-page');
+    if (App.redirectAdmin()) return;
 
-        App.resetStateNavItems();
-        App.findHighlightNavItem(props[0]);
+    App.resetPageName();
+    document.body.classList.add('category-page');
 
-        store.dispatch({
-          type: APP_PAGE_CHANGE,
-          currentPage: APP_PAGES.category,
-          category: props[1],
-        });
-        this.categoryPage.render(props[1]);
-      })
-      .add('statistic', () => {
-        this.clearMainEl();
+    App.resetStateNavItems();
+    App.findHighlightNavItem(props[0]);
 
-        if (App.redirectAdmin()) return;
+    store.dispatch({
+      type: APP_PAGE_CHANGE,
+      currentPage: APP_PAGES.category,
+      category: props[1],
+    });
+    this.categoryPage.render(props[1]);
+  }
 
-        App.resetPageName();
-        document.body.classList.add('statistic-page');
+  private renderStatisticPage(): void {
+    this.clearMainEl();
 
-        App.resetStateNavItems();
-        App.highlightNavItem(navDrawer.navItems.length - 1);
+    if (App.redirectAdmin()) return;
 
-        store.dispatch({
-          type: APP_PAGE_CHANGE,
-          currentPage: APP_PAGES.statistic,
-        });
-        this.statisticPage.render();
-      })
-      .add(/admin\/category\/(.*)/, (props: RegExpMatchArray) => {
-        this.clearMainEl();
+    App.resetPageName();
+    document.body.classList.add('statistic-page');
 
-        if (App.redirectUser()) return;
+    App.resetStateNavItems();
+    App.highlightNavItem(navDrawer.navItems.length - 1);
 
-        App.resetPageName();
-        document.body.classList.add('admin-category-page');
+    store.dispatch({
+      type: APP_PAGE_CHANGE,
+      currentPage: APP_PAGES.statistic,
+    });
+    this.statisticPage.render();
+  }
 
-        store.dispatch({
-          type: APP_PAGE_CHANGE,
-          currentPage: APP_PAGES.adminCategory,
-          category: props[1]
-        });
-        this.adminCategoryPage.render(props[1]);
-      })
-      .add('admin', () => {
-        this.clearMainEl();
+  private renderAdminCategoryPage(props: RegExpMatchArray): void {
+    this.clearMainEl();
 
-        if (App.redirectUser()) return;
+    if (App.redirectUser()) return;
 
-        App.resetPageName();
-        document.body.classList.add('admin-home-page');
+    App.resetPageName();
+    document.body.classList.add('admin-category-page');
 
-        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.adminHome });
-        this.adminHomePage.render();
-      })
-      .add('', async () => {
-        this.clearMainEl();
+    store.dispatch({
+      type: APP_PAGE_CHANGE,
+      currentPage: APP_PAGES.adminCategory,
+      category: props[1]
+    });
+    this.adminCategoryPage.render(props[1]);
+  }
 
-        if (App.redirectAdmin()) return;
+  private renderAdminHomePage(): void {
+    this.clearMainEl();
 
-        if(store.getState().isLogInOutDone) {
-          await navDrawer.render();
-        }
+    if (App.redirectUser()) return;
 
-        App.resetPageName();
-        document.body.classList.add('home-page');
+    App.resetPageName();
+    document.body.classList.add('admin-home-page');
 
-        App.resetStateNavItems();
-        App.highlightNavItem(0);
+    store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.adminHome });
+    this.adminHomePage.render();
+  }
 
-        store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
-        this.homePage.render();
-      });
+  private async renderHomePage(): Promise<void> {
+    this.clearMainEl();
+
+    if (App.redirectAdmin()) return;
+
+    if(store.getState().isLogInOutDone) {
+      await navDrawer.render();
+    }
+
+    App.resetPageName();
+    document.body.classList.add('home-page');
+
+    App.resetStateNavItems();
+    App.highlightNavItem(0);
+
+    store.dispatch({ type: APP_PAGE_CHANGE, currentPage: APP_PAGES.home });
+    this.homePage.render();
   }
 
   private static redirectAdmin(): boolean {
