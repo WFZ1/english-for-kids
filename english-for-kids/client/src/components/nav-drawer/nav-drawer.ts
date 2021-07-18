@@ -38,7 +38,6 @@ class NavDrawer extends BaseComponent {
     this.wrapperEl = createElement('div', ['nav-drawer__wrapper']);
 
     this.attachListeners();
-    this.render();
   }
 
   async render(): Promise<void> {

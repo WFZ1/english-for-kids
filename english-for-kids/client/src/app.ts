@@ -98,7 +98,7 @@ export default class App {
       .add('', () => this.renderHomePage());
   }
 
-  private renderCategoryPage(props: RegExpMatchArray): void {
+  private async renderCategoryPage(props: RegExpMatchArray): Promise<void> {
     this.clearMainEl();
 
     if (App.redirectAdmin()) return;
@@ -106,6 +106,7 @@ export default class App {
     App.resetPageName();
     document.body.classList.add('category-page');
 
+    if(!navDrawer.navItems.length) await navDrawer.render();
     App.resetStateNavItems();
     App.findHighlightNavItem(props[0]);
 
@@ -117,7 +118,7 @@ export default class App {
     this.categoryPage.render(props[1]);
   }
 
-  private renderStatisticPage(): void {
+  private async renderStatisticPage(): Promise<void> {
     this.clearMainEl();
 
     if (App.redirectAdmin()) return;
@@ -125,6 +126,7 @@ export default class App {
     App.resetPageName();
     document.body.classList.add('statistic-page');
 
+    if(!navDrawer.navItems.length) await navDrawer.render();
     App.resetStateNavItems();
     App.highlightNavItem(navDrawer.navItems.length - 1);
 
@@ -168,7 +170,7 @@ export default class App {
 
     if (App.redirectAdmin()) return;
 
-    if (store.getState().isLogInOutDone) {
+    if (store.getState().isLogInOutDone || !navDrawer.navItems.length) {
       await navDrawer.render();
     }
 
