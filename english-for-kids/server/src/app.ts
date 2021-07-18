@@ -22,6 +22,7 @@ const app = express();
 
 const publicFolderPath = path.join(__dirname, '../public');
 const backupAssetsFolderPath = path.join(__dirname, '../public/backup');
+const wwwFolderPath = path.join(__dirname, '../www');
 
 // updateCategory function renames categories folders. For stable work app need restore default folders names when server reload
 (async () => {
@@ -115,17 +116,7 @@ function updateCategory(
   );
 }
 
-app.get(/\/api\/word-image/, (req, res) => {
-  const { folder, file } = getMediaFileUrl(req.path);
-
-  res.sendFile(`${wordsImagesPath}/${folder}/${file}`);
-});
-
-app.get(/\/api\/word-audio/, (req, res) => {
-  const { folder, file } = getMediaFileUrl(req.path);
-
-  res.sendFile(`${wordsAudiosPath}/${folder}/${file}`);
-});
+app.get(/^(?!\/api\/)/, express.static(wwwFolderPath));
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -136,6 +127,18 @@ app.post('/login', (req, res) => {
   } else {
     res.json({ error: AUTH_ERROR_MESSAGE });
   }
+});
+
+app.get(/\/api\/word-image/, (req, res) => {
+  const { folder, file } = getMediaFileUrl(req.path);
+
+  res.sendFile(`${wordsImagesPath}/${folder}/${file}`);
+});
+
+app.get(/\/api\/word-audio/, (req, res) => {
+  const { folder, file } = getMediaFileUrl(req.path);
+
+  res.sendFile(`${wordsAudiosPath}/${folder}/${file}`);
 });
 
 app.get('/api/nav-items', (req, res) => res.json(NAV_ITEMS));
