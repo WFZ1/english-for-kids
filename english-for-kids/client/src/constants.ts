@@ -161,7 +161,7 @@ export const LOGIN_FORM_SUBMIT_BTN = {
   type: 'submit',
 };
 
-export const SERVER_URL = (window.location.origin.indexOf('localhost')) ? 'http://localhost:7000' : window.location.origin;
+export const SERVER_URL = (window.location.origin.indexOf('localhost') >= 0) ? 'http://localhost:7000' : window.location.origin;
 
 export const SERVER_API_CATEGORY_IMAGE_URL = `${SERVER_URL}/api/category-image`;
 export const SERVER_API_CATEGORIES_URL = `${SERVER_URL}/api/categories`;
